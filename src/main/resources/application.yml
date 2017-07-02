@@ -3,9 +3,9 @@ spring:
     active: dev
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/example
-    username: root
-    password:
+    url: jdbc:mysql://127.0.0.1:3306/test
+    username: zwpjava
+    password: 12345678
   jpa:
     hibernate:
       ddl-auto: update
