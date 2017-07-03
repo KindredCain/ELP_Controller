@@ -17,7 +17,7 @@ import javax.persistence.Table;
 public class Discuss extends BaseEntity{
     @Column(nullable = false,length = 32)
     private String lessonNum;
-    @Column(nullable = false,length = 32)
+    @Column(length = 32)
     private String reDiscussNum;
     @Column(nullable = false,length = 32)
     private String talkUserNum;
