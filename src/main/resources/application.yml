@@ -1,11 +1,6 @@
 spring:
   profiles:
-    active: dev
-  datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/test
-    username: zwpjava
-    password: 12345678
+    active: zwp
   jpa:
     hibernate:
       ddl-auto: update
