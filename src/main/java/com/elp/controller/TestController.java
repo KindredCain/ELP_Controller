@@ -7,24 +7,22 @@ import com.elp.service.DiscussService;
 import com.elp.service.UserService;
 import com.elp.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by NWJ on 2017/7/2.
  */
 
 @RestController
+@CrossOrigin
 public class TestController {
+
     @Autowired
     private UserService userService;
     @Autowired
     private CourseService courseService;
     @Autowired
     private DiscussService discussService;
-
 
     @PostMapping(value = "/posttest")
     public Result postTest(String name) {
@@ -41,7 +39,6 @@ public class TestController {
         User user = new User();
         user = userService.allUser().get(0);
         String str = "";
-
         Discuss discuss = new Discuss();
         discuss.setDiscussContent("test");
         discuss.setLessonNum("1");

@@ -1,10 +1,10 @@
 server:
-  port: 8080
+  port: 6999
 spring:
   jpa:
     show-sql: true
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/example
+    url: jdbc:mysql://127.0.0.1:3306/elp
     username: root
     password:
