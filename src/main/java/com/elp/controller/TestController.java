@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by NWJ on 2017/7/2.
  */
@@ -24,6 +27,7 @@ public class TestController {
     private CourseService courseService;
     @Autowired
     private DiscussService discussService;
+
 
 
     @PostMapping(value = "/posttest")
@@ -41,11 +45,11 @@ public class TestController {
         User user = new User();
         user = userService.allUser().get(0);
         String str = "";
-
         Discuss discuss = new Discuss();
         discuss.setDiscussContent("test");
         discuss.setLessonNum("1");
         discuss.setTalkUserNum(user.getObjectId());
+        discuss.setDiscussType("normal");
         discussService.add(discuss);
         Discuss discuss1 = discussService.allDiscuss().get(0);
         String id = discuss1.getObjectId();
@@ -54,6 +58,14 @@ public class TestController {
         discuss1 = discussService.findById(id).get(0);
         str += "updata: "+discuss1.getDiscussContent();
         discussService.delDiscuss(id);
+
         return  str;
+    }
+    @PostMapping(value = "/testtables")
+    public  String testtables(){
+        List list = discussService.findDiscussTest();
+        Map<String,String> map = (Map<String, String>) list.get(0);
+        String str = map.get("userName")+":"+map.get("discussContent");
+        return str;
     }
 }

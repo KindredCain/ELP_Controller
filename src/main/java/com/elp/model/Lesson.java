@@ -26,6 +26,7 @@ public class Lesson extends BaseEntity{
     @Column(nullable = false,length = 32)
     private String lessonType;
 
+
     public String getExpectComplete() {
         return expectComplete;
     }

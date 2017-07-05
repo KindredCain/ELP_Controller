@@ -18,4 +18,8 @@ public interface DiscussRespositroy extends JpaRepository<Discuss,String> {
 
     @Query("from Discuss discuss where discuss.objectId = :objectId")
     List<Discuss> findById(@Param("objectId") String objectId);
+
+    @Query("from Discuss discuss,User user where user.objectId = discuss.talkUserNum")
+    List<Object[]> findTest();
+
 }
