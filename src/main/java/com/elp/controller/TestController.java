@@ -7,10 +7,7 @@ import com.elp.service.DiscussService;
 import com.elp.service.UserService;
 import com.elp.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -20,14 +17,15 @@ import java.util.Map;
  */
 
 @RestController
+@CrossOrigin
 public class TestController {
+
     @Autowired
     private UserService userService;
     @Autowired
     private CourseService courseService;
     @Autowired
     private DiscussService discussService;
-
 
 
     @PostMapping(value = "/posttest")
