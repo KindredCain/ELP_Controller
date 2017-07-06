@@ -3,12 +3,10 @@ package com.elp.service;
 import com.elp.enums.ResultEnum;
 import com.elp.exception.MyException;
 import com.elp.model.User;
-import com.elp.repository.UserRespositroy;
+import com.elp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,48 +15,47 @@ import java.util.List;
 @Service
 public class UserService {
     @Autowired
-    private UserRespositroy userRespositroy;
+    private UserRepository userRepository;
+    @Autowired
+    private BaseService baseService;
+
     //增
     public void add(User user){
-        userRespositroy.save(user);
+        userRepository.save(user);
     }
-    //查找所有
-    public List<User> allUser(){
-        List<User> list = userRespositroy.findAll();
+    //删
+    public void delete(User user){
+        User userItem = userRepository.findById(user.getObjectId());
+        if(userItem == null){
+            throw new MyException(ResultEnum.ERROR_101);
+        } else{
+            baseService.delete(userRepository, userItem);
+        }
+    }
+    //改
+    public void update(User user){
+        User userItem = userRepository.findById(user.getObjectId());
+        if(userItem == null){
+            throw new MyException(ResultEnum.ERROR_101);
+        } else{
+            userRepository.save(user);
+        }
+    }
+    //查询所有
+    public List<User> findAll(){
+        List<User> list = userRepository.findAll();
         return  list;
     }
-    //精确查找 根据编号  职位编号 根据用户类型
-    public  List<User> findById(String id){
-        return userRespositroy.findById(id);
+    //主key查询
+    public  User findById(String id){
+        return userRepository.findById(id);
     }
+    //职位查询
     public List<User> findByOffice(String officeNum){
-        return  userRespositroy.findByOfficeNum(officeNum);
+        return  userRepository.findByOfficeNum(officeNum);
     }
+    //类型查询
     public List<User> findByUserType(String userType){
-        return userRespositroy.findByUserType(userType);
-    }
-    //修改用户信息
-    public void updateUser(User user){
-        User userone = userRespositroy.findOne(user.getObjectId());
-        if(userone == null){
-            throw new MyException(ResultEnum.ERROR_101);
-        }else{
-            Date date = new Date();
-            Timestamp time = new Timestamp(date.getTime());
-            user.setUpdateTime(time);
-            userRespositroy.save(user);
-        }
-    }
-    //删除用户
-    public void delUser(String id){
-        User userone = userRespositroy.findOne(id);
-        if(userone == null){
-            throw new MyException(ResultEnum.ERROR_101);
-        }else{
-            Date date = new Date();
-            Timestamp time = new Timestamp(date.getTime());
-            userone.setDelTime(time);
-            userRespositroy.save(userone);
-        }
+        return userRepository.findByUserType(userType);
     }
 }

@@ -11,11 +11,11 @@ import java.util.List;
 /**
  * Created by ASUS on 2017/7/3.
  */
-public interface DiscussRespositroy extends JpaRepository<Discuss,String> {
+public interface DiscussRepository extends JpaRepository<Discuss,String> {
 
     @Query("from Discuss discuss where discuss.delTime is null")
     List<Discuss> findAll();
 
-    @Query("from Discuss discuss where discuss.objectId = :objectId")
-    List<Discuss> findById(@Param("objectId") String objectId);
+    @Query("from Discuss discuss where discuss.objectId = :objectId and discuss.delTime is null")
+    Discuss findById(@Param("objectId") String objectId);
 }

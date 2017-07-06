@@ -15,12 +15,17 @@ public class PagerankService {
     Map<String, Double> rank;
     Map<String, Double> rankItem;
     Map<String, List<String>> m;
+    List<Map.Entry<String, Double>> result;
 
     /*主程序*/
-    public Map<String, Double> mainRank (String key){
+    public List<Map.Entry<String, Double>> mainRank (String key){
         this.loadMap(key);
-        this.getRank(key);
-        return rank;
+        for(int i = 0; i < 15; i++) {
+            this.getRank(key);
+        }
+        this.deleteSame(key);
+        this.sortRank();
+        return result;
     }
 
     /*计算rank*/
@@ -137,5 +142,30 @@ public class PagerankService {
         } catch (Exception e){
             throw new MyException(ResultEnum.ERROR_103);
         }
+    }
+
+    /*删除重复关系*/
+    public void deleteSame(String key){
+        List<String> list = m.get(key);
+        for(int i = 0; i < list.size(); i++){
+            rank.remove(list.get(i));
+        }
+    }
+
+    /*rank排序*/
+    public void sortRank(){
+        result = new ArrayList<Map.Entry<String,Double>>(rank.entrySet());
+        Collections.sort(result,new Comparator<Map.Entry<String, Double>>() {
+
+            @Override
+            public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2) {
+                if(o2.getValue() > o1.getValue())
+                    return 1;
+                else if (o2.getValue() == o1.getValue())
+                    return 0;
+                else
+                    return -1;
+            }
+        });
     }
 }

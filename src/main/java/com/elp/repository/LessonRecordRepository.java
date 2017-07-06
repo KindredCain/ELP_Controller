@@ -11,11 +11,11 @@ import java.util.List;
 /**
  * Created by ASUS on 2017/7/3.
  */
-public interface LessonRecordRespositroy extends JpaRepository<LessonRecord,String> {
+public interface LessonRecordRepository extends JpaRepository<LessonRecord,String> {
 
     @Query("from LessonRecord lessonRecord where lessonRecord.delTime is null")
     List<LessonRecord> findAll();
 
-    @Query("from LessonRecord lessonRecord where lessonRecord.objectId = :objectId")
-    List<LessonRecord> findById(@Param("objectId") String objectId);
+    @Query("from LessonRecord lessonRecord where lessonRecord.objectId = :objectId and lessonRecord.delTime is null")
+    LessonRecord findById(@Param("objectId") String objectId);
 }

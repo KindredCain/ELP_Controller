@@ -11,11 +11,11 @@ import java.util.List;
 /**
  * Created by ASUS on 2017/7/3.
  */
-public interface MsgRespositroy extends JpaRepository<Msg,String> {
+public interface MsgRepository extends JpaRepository<Msg,String> {
 
     @Query("from Msg msg where msg.delTime is null")
     List<Msg> findAll();
 
-    @Query("from Msg msg where msg.objectId = :objectId")
-    List<Msg> findById(@Param("objectId") String objectId);
+    @Query("from Msg msg where msg.objectId = :objectId and msg.delTime is null")
+    Msg findById(@Param("objectId") String objectId);
 }

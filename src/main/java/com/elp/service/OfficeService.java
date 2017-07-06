@@ -7,8 +7,6 @@ import com.elp.repository.OfficeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,42 +15,39 @@ import java.util.List;
 @Service
 public class OfficeService {
     @Autowired
-    private OfficeRepository officeRespositroy;
+    private OfficeRepository officeRepository;
+    @Autowired
+    private BaseService baseService;
+
     //增
     public void add(Office office){
-        officeRespositroy.save(office);
+        officeRepository.save(office);
     }
-    //查找所有
-    public List<Office> allOffice(){
-        List<Office> list = officeRespositroy.findAll();
+    //删
+    public void delete(Office office){
+        Office officeItem = officeRepository.findById(office.getObjectId());
+        if(officeItem == null){
+            throw new MyException(ResultEnum.ERROR_101);
+        } else{
+            baseService.delete(officeRepository, officeItem);
+        }
+    }
+    //改
+    public void update(Office office){
+        Office officeItem = officeRepository.findById(office.getObjectId());
+        if(officeItem == null){
+            throw new MyException(ResultEnum.ERROR_101);
+        } else{
+            officeRepository.save(office);
+        }
+    }
+    //查询所有
+    public List<Office> findAll(){
+        List<Office> list = officeRepository.findAll();
         return  list;
     }
-    //精确查找
-    public  List<Office> findById(String id){
-        return officeRespositroy.findById(id);
-    }
-    //修改
-    public void updateUser(Office office){
-        Office office1one = officeRespositroy.findOne(office.getObjectId());
-        if(office1one == null){
-            throw new MyException(ResultEnum.ERROR_101);
-        }else{
-            Date date = new Date();
-            Timestamp time = new Timestamp(date.getTime());
-            office.setUpdateTime(time);
-            officeRespositroy.save(office);
-        }
-    }
-    //删除
-    public void delUser(String id){
-        Office officeone = officeRespositroy.findOne(id);
-        if(officeone == null){
-            throw new MyException(ResultEnum.ERROR_101);
-        }else{
-            Date date = new Date();
-            Timestamp time = new Timestamp(date.getTime());
-            officeone.setDelTime(time);
-            officeRespositroy.save(officeone);
-        }
+    //主key查询
+    public  Office findById(String id){
+        return officeRepository.findById(id);
     }
 }

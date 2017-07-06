@@ -11,11 +11,11 @@ import java.util.List;
 /**
  * Created by ASUS on 2017/7/3.
  */
-public interface CourseRecordRespositroy extends JpaRepository<CourseRecord,String> {
+public interface CourseRecordRepository extends JpaRepository<CourseRecord,String> {
 
     @Query("from CourseRecord courseRecord where courseRecord.delTime is null")
     List<CourseRecord> findAll();
 
-    @Query("from CourseRecord courseRecord where courseRecord.objectId = :objectId")
-    List<CourseRecord> findById(@Param("objectId") String objectId);
+    @Query("from CourseRecord courseRecord where courseRecord.objectId = :objectId and courseRecord.delTime is null")
+    CourseRecord findById(@Param("objectId") String objectId);
 }
