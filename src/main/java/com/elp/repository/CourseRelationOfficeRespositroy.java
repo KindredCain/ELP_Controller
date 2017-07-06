@@ -16,6 +16,12 @@ public interface CourseRelationOfficeRespositroy extends JpaRepository<CourseRel
     @Query("from CourseRelationOffice courseRelationOffice where courseRelationOffice.delTime is null")
     List<CourseRelationOffice> findAll();
 
-    @Query("from CourseRelationOffice courseRelationOffice where courseRelationOffice.objectId = :objectId")
+    @Query("from CourseRelationOffice courseRelationOffice where courseRelationOffice.objectId = :objectId AND courseRelationOffice.delTime is null")
+    CourseRelationOffice findOne(@Param("objectId") String objectId);
+
+    @Query("from CourseRelationOffice courseRelationOffice where courseRelationOffice.objectId = :objectId AND courseRelationOffice.delTime is null")
     List<CourseRelationOffice> findById(@Param("objectId") String objectId);
+
+    @Query("from CourseRelationOffice courseRelationOffice where courseRelationOffice.officeNum = :officeNum AND courseRelationOffice.delTime is null")
+    List<CourseRelationOffice> findByOfficeNum(@Param("officeNum") String officeNum);
 }

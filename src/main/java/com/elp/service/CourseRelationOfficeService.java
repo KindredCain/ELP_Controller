@@ -39,9 +39,6 @@ public class CourseRelationOfficeService {
         if(courseRelationOfficeRespositroyOne == null){
             throw new MyException(ResultEnum.ERROR_101);
         }else{
-            Date date = new Date();
-            Timestamp time = new Timestamp(date.getTime());
-            courseRelationOffice.setUpdateTime(time);
             courseRelationOfficeRespositroy.save(courseRelationOffice);
         }
     }

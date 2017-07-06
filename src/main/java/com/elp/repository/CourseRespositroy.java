@@ -16,6 +16,10 @@ public interface CourseRespositroy extends JpaRepository<Course,String> {
     @Query("from Course course where course.delTime is null")
     List<Course> findAll();
 
-    @Query("from Course course where course.objectId = :objectId")
+    @Query("from Course course where course.objectId = :objectId AND course.delTime is null")
+    Course findOne(@Param("objectId") String objectId);
+
+    @Query("from Course course where course.objectId = :objectId AND course.delTime is null")
     List<Course> findById(@Param("objectId") String objectId);
+
 }

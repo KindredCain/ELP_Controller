@@ -3,11 +3,13 @@ package com.elp.service;
 import com.elp.enums.ResultEnum;
 import com.elp.exception.MyException;
 import com.elp.model.Discuss;
+import com.elp.model.Relation;
 import com.elp.model.User;
 import com.elp.repository.DiscussRespositroy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -35,19 +37,50 @@ public class DiscussService {
         return discussRespositroy.findById(id);
     }
 
-    public List<Map<String,String>> findDiscussTest(){
+    public List<Map<String, String>> findDiscussTest0() {
         List list = discussRespositroy.findTest();
-        List<Map<String,String>> listmap = new ArrayList();
-        for (int i=0;i<list.size();i++){
-            Map<String,String> map = new HashMap<String,String>();
+        List<Map<String, String>> listmap = new ArrayList();
+        System.out.println("size:" + list.size());
+        for (int i = 0; i < list.size(); i++) {
+            Map<String, String> map = new HashMap<String, String>();
             Object[] objects = (Object[]) list.get(i);
             Discuss discuss = (Discuss) objects[0];
             User user = (User) objects[1];
-            map.put("discussContent",discuss.getDiscussContent());
-            map.put("userName",user.getUserName());
+            map.put("discussContent", discuss.getDiscussContent());
+            map.put("userName", user.getUserName());
             listmap.add(map);
         }
         return listmap;
+    }
+
+    public List<Map<String, String>> findDiscussTest() {
+        List list = discussRespositroy.findTest2();
+        List<Map<String, String>> listmap = new ArrayList();
+        System.out.println("size:" + list.size());
+        for (int i = 0; i < list.size(); i++) {
+            Map<String, String> map = new HashMap<String, String>();
+            Object objects[] = (Object[]) list.get(i);
+            Discuss discuss = (Discuss) objects[0];
+            User user = (User) objects[1];
+            map.put("discussContent", discuss.getDiscussContent());
+            map.put("userName", user.getUserName());
+            System.out.println(map.get("userName"));
+            listmap.add(map);
+        }
+        return listmap;
+    }
+
+    public BigInteger findDiscussNum() {
+        List list = discussRespositroy.findNum();
+        BigInteger num;
+        num = (BigInteger) list.get(0);
+        return num;
+
+    }
+
+    public List<Discuss> findSqlTest() {
+        List list = discussRespositroy.findTestSql();
+        return list;
     }
 
     //修改
@@ -56,9 +89,6 @@ public class DiscussService {
         if (discussOne == null) {
             throw new MyException(ResultEnum.ERROR_101);
         } else {
-            Date date = new Date();
-            Timestamp time = new Timestamp(date.getTime());
-            discuss.setUpdateTime(time);
             discussRespositroy.save(discuss);
         }
     }

@@ -16,6 +16,12 @@ public interface LessonRecordRespositroy extends JpaRepository<LessonRecord,Stri
     @Query("from LessonRecord lessonRecord where lessonRecord.delTime is null")
     List<LessonRecord> findAll();
 
-    @Query("from LessonRecord lessonRecord where lessonRecord.objectId = :objectId")
+    @Query("from LessonRecord lessonRecord where lessonRecord.objectId = :objectId AND lessonRecord.delTime is null")
+    LessonRecord findOne(@Param("objectId") String objectId);
+
+    @Query("from LessonRecord lessonRecord where lessonRecord.objectId = :objectId AND lessonRecord.delTime is null")
     List<LessonRecord> findById(@Param("objectId") String objectId);
+
+    @Query("from LessonRecord lessonRecord where lessonRecord.lessonNum = :lessonNum and lessonRecord.userNum = :userNum AND lessonRecord.delTime is null")
+    List<LessonRecord> findByLessonNumAndUserNum(@Param("lessonNum") String lessonNum,@Param("userNum") String userNum);
 }

@@ -10,9 +10,15 @@ import java.util.List;
 /**
  * Created by ASUS on 2017/7/4.
  */
-public interface RelationCourseRespositroy extends JpaRepository<RelationCourse,String>{
+public interface RelationCourseRespositroy extends JpaRepository<RelationCourse, String> {
     @Query("from RelationCourse relationCourse where relationCourse.delTime is null")
     List<RelationCourse> findAll();
-    @Query("from RelationCourse relationCourse where relationCourse.objectId = :objectId")
+
+    @Query("from RelationCourse relationCourse where relationCourse.objectId = :objectId AND relationCourse.delTime is null")
+    RelationCourse findOne(@Param("objectId") String objectId);
+
+    @Query("from RelationCourse relationCourse where relationCourse.objectId = :objectId AND relationCourse.delTime is null")
     List<RelationCourse> findById(@Param("objectId") String objectId);
+
+
 }

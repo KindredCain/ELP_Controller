@@ -16,6 +16,9 @@ public interface DepartmentRespositroy extends JpaRepository<Department,String> 
     @Query("from Department department where department.delTime is null")
     List<Department> findAll();
 
-    @Query("from Department department where department.objectId = :objectId")
+    @Query("from Department department where department.objectId = :objectId AND department.delTime is null")
+    Department findOne(@Param("objectId") String objectId);
+
+    @Query("from Department department where department.objectId = :objectId AND department.delTime is null")
     List<Department> findById(@Param("objectId") String objectId);
 }

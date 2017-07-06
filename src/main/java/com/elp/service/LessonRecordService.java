@@ -39,9 +39,6 @@ public class LessonRecordService {
         if(lessonRecordOne == null){
             throw new MyException(ResultEnum.ERROR_101);
         }else{
-            Date date = new Date();
-            Timestamp time = new Timestamp(date.getTime());
-            lessonRecord.setUpdateTime(time);
             lessonRecordRespositroy.save(lessonRecord);
         }
     }

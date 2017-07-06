@@ -39,9 +39,6 @@ public class CourseService {
         if(courseOne == null){
             throw new MyException(ResultEnum.ERROR_101);
         }else{
-            Date date = new Date();
-            Timestamp time = new Timestamp(date.getTime());
-            course.setUpdateTime(time);
             courseRespositroy.save(course);
         }
     }

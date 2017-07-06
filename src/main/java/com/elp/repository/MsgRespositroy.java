@@ -16,6 +16,12 @@ public interface MsgRespositroy extends JpaRepository<Msg,String> {
     @Query("from Msg msg where msg.delTime is null")
     List<Msg> findAll();
 
-    @Query("from Msg msg where msg.objectId = :objectId")
+    @Query("from Msg msg where msg.objectId = :objectId AND msg.delTime is null")
+    Msg findOne(@Param("objectId") String objectId);
+
+    @Query("from Msg msg where msg.objectId = :objectId AND msg.delTime is null")
     List<Msg> findById(@Param("objectId") String objectId);
+
+    @Query("from Msg msg where msg.recUser = :userId AND msg.delTime is null")
+    List<Msg> findByRecUser(@Param("userId") String userId);
 }

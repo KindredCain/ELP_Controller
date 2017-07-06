@@ -39,9 +39,6 @@ public class MsgService {
         if(msgone == null){
             throw new MyException(ResultEnum.ERROR_101);
         }else{
-            Date date = new Date();
-            Timestamp time = new Timestamp(date.getTime());
-            msg.setUpdateTime(time);
             MsgRespositroy.save(msg);
         }
     }

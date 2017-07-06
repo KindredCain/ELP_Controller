@@ -37,9 +37,6 @@ public class OfficeService {
         if(office1one == null){
             throw new MyException(ResultEnum.ERROR_101);
         }else{
-            Date date = new Date();
-            Timestamp time = new Timestamp(date.getTime());
-            office.setUpdateTime(time);
             officeRespositroy.save(office);
         }
     }
