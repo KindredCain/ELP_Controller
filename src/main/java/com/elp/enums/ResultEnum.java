@@ -9,7 +9,9 @@ public enum ResultEnum {
     SUCCESS(200, "成功"),
     ERROR_100(100, "没有权限"),
     ERROR_101(101, "没有数据"),
-    ERROR_102(102, "登录失败"),;
+    ERROR_102(102, "登录失败"),
+    ERROR_103(103, "文件操作失败"),
+    ERROR_104(104, "文件读取失败"),;
     private Integer code;
     private String msg;
 
