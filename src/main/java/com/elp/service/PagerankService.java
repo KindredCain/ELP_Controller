@@ -77,6 +77,9 @@ public class PagerankService {
             }
             m.put(keyA, listItem);
         }
+        for (Map.Entry<String, List<String>> entry : m.entrySet()) {
+            rank.put(entry.getKey(), 1.0 / list.size());
+        }
     }
 
     /*获取矩阵*/
@@ -98,11 +101,11 @@ public class PagerankService {
                     while ((lineTxt = bufferedReader.readLine()) != null) {
                         num++;
                         String uuid = lineTxt.substring(0, lineTxt.indexOf(";"));
-                        lineTxt.substring(lineTxt.indexOf(";") + 1);
+                        lineTxt = lineTxt.substring(lineTxt.indexOf(";") + 1);
                         List<String> list = new ArrayList<String>();
                         while (lineTxt.indexOf(",") > 0) {
                             list.add(lineTxt.substring(0, lineTxt.indexOf(",")));
-                            lineTxt.substring(lineTxt.indexOf(",") + 1);
+                            lineTxt = lineTxt.substring(lineTxt.indexOf(",") + 1);
                         }
                         list.add(lineTxt);
                         m.put(uuid, list);
@@ -143,7 +146,7 @@ public class PagerankService {
                 + now.get(Calendar.DAY_OF_MONTH);
         if(!m.containsKey(key)){
             return false;
-        } else if(time != day) {
+        } else if(!time.equals(day)) {
             return false;
         } else {
             return true;
