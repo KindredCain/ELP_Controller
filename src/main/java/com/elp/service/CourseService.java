@@ -3,13 +3,10 @@ package com.elp.service;
 import com.elp.enums.ResultEnum;
 import com.elp.exception.MyException;
 import com.elp.model.Course;
-import com.elp.model.User;
-import com.elp.repository.CourseRespositroy;
+import com.elp.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,40 +15,39 @@ import java.util.List;
 @Service
 public class CourseService {
     @Autowired
-    private CourseRespositroy courseRespositroy;
+    private CourseRepository courseRepository;
+    @Autowired
+    private BaseService baseService;
+
     //增
     public void add(Course course){
-        courseRespositroy.save(course);
+        courseRepository.save(course);
     }
-    //查找所有
-    public List<Course> allCourse(){
-        List<Course> list = courseRespositroy.findAll();
+    //删
+    public void delete(Course course){
+        Course courseItem = courseRepository.findById(course.getObjectId());
+        if(courseItem == null){
+            throw new MyException(ResultEnum.ERROR_101);
+        } else{
+            baseService.delete(courseRepository, courseItem);
+        }
+    }
+    //改
+    public void update(Course course){
+        Course courseItem = courseRepository.findById(course.getObjectId());
+        if(courseItem == null){
+            throw new MyException(ResultEnum.ERROR_101);
+        } else{
+            courseRepository.save(course);
+        }
+    }
+    //查询所有
+    public List<Course> findAll(){
+        List<Course> list = courseRepository.findAll();
         return  list;
     }
-    //精确查找
-    public  List<Course> findById(String id){
-        return courseRespositroy.findById(id);
-    }
-
-    //修改
-    public void updateCourse(Course course){
-        Course courseOne = courseRespositroy.findOne(course.getObjectId());
-        if(courseOne == null){
-            throw new MyException(ResultEnum.ERROR_101);
-        }else{
-            courseRespositroy.save(course);
-        }
-    }
-    //删除用户
-    public void delCourse(String id){
-        Course courseOne = courseRespositroy.findOne(id);
-        if(courseOne == null){
-            throw new MyException(ResultEnum.ERROR_101);
-        }else{
-            Date date = new Date();
-            Timestamp time = new Timestamp(date.getTime());
-            courseOne.setDelTime(time);
-            courseRespositroy.save(courseOne);
-        }
+    //主key查询
+    public  Course findById(String id){
+        return courseRepository.findById(id);
     }
 }

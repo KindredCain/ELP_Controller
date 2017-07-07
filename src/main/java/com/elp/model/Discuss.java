@@ -11,7 +11,6 @@ import javax.persistence.Table;
  -回复讨论编号 recDiscussNum(String varchar 外码？)
  -发言人编号 talkUserNum(Stringvarchar 外键)
  -讨论内容 discussContent(String varchar)
- -讨论类型 discussType (String varchar)
  */
 @Entity
 @Table(name = "tb_discuss")
@@ -24,20 +23,11 @@ public class Discuss extends BaseEntity{
     private String talkUserNum;
     @Column(nullable = false,length = 200)
     private String discussContent;
-    @Column(nullable = false,length = 32)
-    private String discussType;
-
-    public String getDiscussType() {
-        return discussType;
-    }
-
-    public void setDiscussType(String discussType) {
-        this.discussType = discussType;
-    }
 
     public String getLessonNum() {
         return lessonNum;
     }
+
     public void setLessonNum(String lessonNum) {
         this.lessonNum = lessonNum;
     }

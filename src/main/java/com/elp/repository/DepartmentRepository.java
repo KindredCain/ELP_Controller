@@ -11,14 +11,11 @@ import java.util.List;
 /**
  * Created by ASUS on 2017/7/3.
  */
-public interface DepartmentRespositroy extends JpaRepository<Department,String> {
+public interface DepartmentRepository extends JpaRepository<Department,String> {
 
     @Query("from Department department where department.delTime is null")
     List<Department> findAll();
 
-    @Query("from Department department where department.objectId = :objectId AND department.delTime is null")
-    Department findOne(@Param("objectId") String objectId);
-
-    @Query("from Department department where department.objectId = :objectId AND department.delTime is null")
-    List<Department> findById(@Param("objectId") String objectId);
+    @Query("from Department department where department.objectId = :objectId and department.delTime is null")
+    Department findById(@Param("objectId") String objectId);
 }

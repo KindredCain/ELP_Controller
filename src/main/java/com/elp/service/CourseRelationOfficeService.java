@@ -3,13 +3,10 @@ package com.elp.service;
 import com.elp.enums.ResultEnum;
 import com.elp.exception.MyException;
 import com.elp.model.CourseRelationOffice;
-import com.elp.model.User;
-import com.elp.repository.CourseRelationOfficeRespositroy;
+import com.elp.repository.CourseRelationOfficeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,40 +15,39 @@ import java.util.List;
 @Service
 public class CourseRelationOfficeService {
     @Autowired
-    private CourseRelationOfficeRespositroy courseRelationOfficeRespositroy;
+    private CourseRelationOfficeRepository courseRelationOfficeRepository;
+    @Autowired
+    private BaseService baseService;
+
     //增
     public void add(CourseRelationOffice courseRelationOffice){
-        courseRelationOfficeRespositroy.save(courseRelationOffice);
+        courseRelationOfficeRepository.save(courseRelationOffice);
     }
-    //查找所有
-    public List<CourseRelationOffice> allCourseRelationOffice(){
-        List<CourseRelationOffice> list = courseRelationOfficeRespositroy.findAll();
+    //删
+    public void delete(CourseRelationOffice courseRelationOffice){
+        CourseRelationOffice courseRelationOfficeItem = courseRelationOfficeRepository.findById(courseRelationOffice.getObjectId());
+        if(courseRelationOfficeItem == null){
+            throw new MyException(ResultEnum.ERROR_101);
+        } else{
+            baseService.delete(courseRelationOfficeRepository, courseRelationOfficeItem);
+        }
+    }
+    //改
+    public void update(CourseRelationOffice courseRelationOffice){
+        CourseRelationOffice courseRelationOfficeItem = courseRelationOfficeRepository.findById(courseRelationOffice.getObjectId());
+        if(courseRelationOfficeItem == null){
+            throw new MyException(ResultEnum.ERROR_101);
+        } else{
+            courseRelationOfficeRepository.save(courseRelationOffice);
+        }
+    }
+    //查询所有
+    public List<CourseRelationOffice> findAll(){
+        List<CourseRelationOffice> list = courseRelationOfficeRepository.findAll();
         return  list;
     }
-    //精确查找
-    public  List<CourseRelationOffice> findById(String id){
-        return courseRelationOfficeRespositroy.findById(id);
-    }
-
-    //修改
-    public void updateCourseRelationOffice(CourseRelationOffice courseRelationOffice){
-        CourseRelationOffice courseRelationOfficeRespositroyOne = courseRelationOfficeRespositroy.findOne(courseRelationOffice.getObjectId());
-        if(courseRelationOfficeRespositroyOne == null){
-            throw new MyException(ResultEnum.ERROR_101);
-        }else{
-            courseRelationOfficeRespositroy.save(courseRelationOffice);
-        }
-    }
-    //删除
-    public void delCourseRelationOffice(String id){
-        CourseRelationOffice courseRelationOfficeOne = courseRelationOfficeRespositroy.findOne(id);
-        if(courseRelationOfficeOne == null){
-            throw new MyException(ResultEnum.ERROR_101);
-        }else{
-            Date date = new Date();
-            Timestamp time = new Timestamp(date.getTime());
-            courseRelationOfficeOne.setDelTime(time);
-            courseRelationOfficeRespositroy.save(courseRelationOfficeOne);
-        }
+    //主key查询
+    public  CourseRelationOffice findById(String id){
+        return courseRelationOfficeRepository.findById(id);
     }
 }

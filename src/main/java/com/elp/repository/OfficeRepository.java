@@ -15,9 +15,6 @@ public interface OfficeRepository extends JpaRepository<Office,String> {
     @Query("from Office office where office.delTime is null")
     List<Office> findALL();
 
-    @Query("from Office office where office.objectId = :objectId AND office.delTime is null")
-    Office findOne(@Param("object") String object);
-
-    @Query("from Office office where office.objectId = :objectId AND office.delTime is null")
-    List<Office> findById(@Param("object") String object);
+    @Query("from Office office where office.objectId = :objectId and office.delTime is null")
+    Office findById(@Param("object") String object);
 }

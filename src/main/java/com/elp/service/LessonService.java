@@ -3,13 +3,10 @@ package com.elp.service;
 import com.elp.enums.ResultEnum;
 import com.elp.exception.MyException;
 import com.elp.model.Lesson;
-import com.elp.model.User;
-import com.elp.repository.LessonRespositroy;
+import com.elp.repository.LessonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,40 +15,39 @@ import java.util.List;
 @Service
 public class LessonService {
     @Autowired
-    private LessonRespositroy lessonRespositroy;
+    private LessonRepository lessonRepository;
+    @Autowired
+    private BaseService baseService;
+
     //增
     public void add(Lesson lesson){
-        lessonRespositroy.save(lesson);
+        lessonRepository.save(lesson);
     }
-    //查找所有
-    public List<Lesson> allUser(){
-        List<Lesson> list = lessonRespositroy.findAll();
+    //删
+    public void delete(Lesson lesson){
+        Lesson lessonItem = lessonRepository.findById(lesson.getObjectId());
+        if(lessonItem == null){
+            throw new MyException(ResultEnum.ERROR_101);
+        } else{
+            baseService.delete(lessonRepository, lessonItem);
+        }
+    }
+    //改
+    public void update(Lesson lesson){
+        Lesson lessonItem = lessonRepository.findById(lesson.getObjectId());
+        if(lessonItem == null){
+            throw new MyException(ResultEnum.ERROR_101);
+        } else{
+            lessonRepository.save(lesson);
+        }
+    }
+    //查询所有
+    public List<Lesson> findAll(){
+        List<Lesson> list = lessonRepository.findAll();
         return  list;
     }
-    //精确查找
-    public  List<Lesson> findById(String id){
-        return lessonRespositroy.findById(id);
-    }
-
-    //修改
-    public void updateLesson(Lesson lesson){
-        Lesson lessonone = lessonRespositroy.findOne(lesson.getObjectId());
-        if(lessonone == null){
-            throw new MyException(ResultEnum.ERROR_101);
-        }else{
-            lessonRespositroy.save(lesson);
-        }
-    }
-    //删除
-    public void delLesson(String id){
-        Lesson lessonone = lessonRespositroy.findOne(id);
-        if(lessonone == null){
-            throw new MyException(ResultEnum.ERROR_101);
-        }else{
-            Date date = new Date();
-            Timestamp time = new Timestamp(date.getTime());
-            lessonone.setDelTime(time);
-            lessonRespositroy.save(lessonone);
-        }
+    //主key查询
+    public  Lesson findById(String id){
+        return lessonRepository.findById(id);
     }
 }
