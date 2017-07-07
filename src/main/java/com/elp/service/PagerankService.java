@@ -121,6 +121,8 @@ public class PagerankService {
                             + now.get(Calendar.DAY_OF_MONTH);
                     saveMap();
                 }
+                bufferedReader.close();
+                read.close();
             } catch (Exception e){
                 throw new MyException(ResultEnum.ERROR_104);
             }
