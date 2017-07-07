@@ -3,6 +3,8 @@ package com.elp.service;
 import com.elp.enums.PathEnum;
 import com.elp.enums.ResultEnum;
 import com.elp.exception.MyException;
+import com.elp.repository.PagerankDao;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.*;
 import java.util.*;
@@ -11,6 +13,8 @@ import java.util.*;
  * Created by NWJ on 2017/7/4.
  */
 public class PagerankService {
+    @Autowired
+    private PagerankDao pagerankDao;
 
     Map<String, Double> rank;
     Map<String, Double> rankItem;
@@ -54,6 +58,23 @@ public class PagerankService {
     }
 
     /*获取联系*/
+    public void getMap(){
+        List<String> listItem;
+        List<Object[]> list = pagerankDao.findPagerank();
+        for(int i = 0; i < list.size(); i++){
+            Object[] item = list.get(i);
+            String keyA = (String) item[0];
+            String keyB = (String) item[1];
+            if (m.containsKey(keyA)){
+                listItem = m.get(keyA);
+                listItem.add(keyB);
+            } else {
+                listItem = new ArrayList<String>();
+                listItem.add(keyB);
+            }
+            m.put(keyA, listItem);
+        }
+    }
 
     /*获取矩阵*/
     public void loadMap(String key){
@@ -90,7 +111,7 @@ public class PagerankService {
             }
         }
         if(!this.isOkMap(key, time)){
-            /*获取联系*/
+            getMap();
             saveMap();
         }
     }

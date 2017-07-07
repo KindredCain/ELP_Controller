@@ -1,6 +1,5 @@
 package com.elp.repository;
 
-import com.elp.model.PagerankEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -19,8 +18,8 @@ public class PagerankDao {
     @Autowired
     private EntityManagerFactory emf;
 
-    public List<PagerankEntity> findPagerank(){
-        List<PagerankEntity> result = new ArrayList<PagerankEntity>();
+    public List<Object[]> findPagerank(){
+        List<Object[]> result = new ArrayList<Object[]>();
         EntityManager em = emf.createEntityManager();
         String sql = "select a.object_id as oa,b.object_id as ob " +
                 "from tb_user as a,tb_user as b " +
@@ -38,11 +37,7 @@ public class PagerankDao {
                 "from tb_course_office as ca,tb_course_office as cb " +
                 "where ca.office_num = cb.office_num and ca.object_id <> cb.object_id ";
         Query query =  em.createNativeQuery(sql);
-        List<Object[]> list = query.getResultList();
-        for(int i = 0; i < list.size(); i++){
-            Object[] item = list.get(i);
-            result.add(new PagerankEntity((String) item[0], (String) item[1]));
-        }
+        result = query.getResultList();
         return result;
     }
 }
