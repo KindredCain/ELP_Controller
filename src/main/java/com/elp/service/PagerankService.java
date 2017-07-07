@@ -93,21 +93,30 @@ public class PagerankService {
             try {
                 InputStreamReader read = new InputStreamReader(new FileInputStream(file));
                 BufferedReader bufferedReader = new BufferedReader(read);
-                time = Integer.valueOf(bufferedReader.readLine());
-                while ((lineTxt = bufferedReader.readLine()) != null) {
-                    num++;
-                    String uuid = lineTxt.substring(0, lineTxt.indexOf(";"));
-                    lineTxt.substring(lineTxt.indexOf(";") + 1);
-                    List<String> list = new ArrayList<String>();
-                    while(lineTxt.indexOf(",") > 0){
-                        list.add(lineTxt.substring(0, lineTxt.indexOf(",")));
-                        lineTxt.substring(lineTxt.indexOf(",") + 1);
+                if((lineTxt = bufferedReader.readLine()) != null) {
+                    time = Integer.valueOf(lineTxt);
+                    while ((lineTxt = bufferedReader.readLine()) != null) {
+                        num++;
+                        String uuid = lineTxt.substring(0, lineTxt.indexOf(";"));
+                        lineTxt.substring(lineTxt.indexOf(";") + 1);
+                        List<String> list = new ArrayList<String>();
+                        while (lineTxt.indexOf(",") > 0) {
+                            list.add(lineTxt.substring(0, lineTxt.indexOf(",")));
+                            lineTxt.substring(lineTxt.indexOf(",") + 1);
+                        }
+                        list.add(lineTxt);
+                        m.put(uuid, list);
                     }
-                    list.add(lineTxt);
-                    m.put(uuid, list);
-                }
-                for(Map.Entry<String, List<String>> entry : m.entrySet()){
-                    rank.put(entry.getKey(), 1.0/num);
+                    for (Map.Entry<String, List<String>> entry : m.entrySet()) {
+                        rank.put(entry.getKey(), 1.0 / num);
+                    }
+                } else {
+                    getMap();
+                    Calendar now = Calendar.getInstance();
+                    time = now.get(Calendar.YEAR) * 10000
+                            + (now.get(Calendar.MONTH) + 1) * 100
+                            + now.get(Calendar.DAY_OF_MONTH);
+                    saveMap();
                 }
             } catch (Exception e){
                 throw new MyException(ResultEnum.ERROR_104);
