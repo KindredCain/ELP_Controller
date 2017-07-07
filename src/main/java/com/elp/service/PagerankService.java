@@ -5,6 +5,7 @@ import com.elp.enums.ResultEnum;
 import com.elp.exception.MyException;
 import com.elp.repository.PagerankDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.util.*;
@@ -12,6 +13,8 @@ import java.util.*;
 /**
  * Created by NWJ on 2017/7/4.
  */
+
+@Service
 public class PagerankService {
     @Autowired
     private PagerankDao pagerankDao;
