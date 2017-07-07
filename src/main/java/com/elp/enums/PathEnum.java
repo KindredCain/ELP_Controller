@@ -9,7 +9,7 @@ public enum PathEnum {
     MAP_PATH("." + File.separator
             + "main" + File.separator
             + "resources" + File.separator
-            + "Item" + File.separator
+            + "item" + File.separator
             + "mapsave"),;
 
     private String path;

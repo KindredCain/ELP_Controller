@@ -112,6 +112,13 @@ public class PagerankService {
             } catch (Exception e){
                 throw new MyException(ResultEnum.ERROR_104);
             }
+        } else {
+            getMap();
+            Calendar now = Calendar.getInstance();
+            time = now.get(Calendar.YEAR) * 10000
+                    + (now.get(Calendar.MONTH) + 1) * 100
+                    + now.get(Calendar.DAY_OF_MONTH);
+            saveMap();
         }
         if(!this.isOkMap(key, time)){
             getMap();
@@ -125,7 +132,7 @@ public class PagerankService {
         Integer time = now.get(Calendar.YEAR) * 10000
                 + (now.get(Calendar.MONTH) + 1) * 100
                 + now.get(Calendar.DAY_OF_MONTH);
-        if(!rankItem.containsKey(key)){
+        if(!m.containsKey(key)){
             return false;
         } else if(time != day) {
             return false;
