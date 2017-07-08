@@ -16,7 +16,7 @@ import javax.persistence.*;
 public class User extends BaseEntity{
     @Column(nullable = false,length = 32)
     private String officeNum;
-    @Column(nullable = false,length = 32)
+    @Column(nullable = false,unique = true,length = 32)
     private String logId;
     @Column(nullable = false,length = 32)
     private String pwd;
@@ -24,6 +24,16 @@ public class User extends BaseEntity{
     private String userType;
     @Column(nullable = false,length = 32)
     private String userName;
+    @Column()
+    private String userPicUrl;
+
+    public String getUserPicUrl() {
+        return userPicUrl;
+    }
+
+    public void setUserPicUrl(String userPicUrl) {
+        this.userPicUrl = userPicUrl;
+    }
 
     public String getUserName() {
         return userName;

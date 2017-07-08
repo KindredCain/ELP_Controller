@@ -21,16 +21,16 @@ public class Lesson extends BaseEntity{
     private String lessonName;
     @Column(length = 51)
     private String lessonInfo;
-    @Column(nullable = false,length = 32)
-    private String expectComplete;
+    @Column(precision = 5,scale = 2)
+    private double expectComplete;
     @Column(nullable = false,length = 32)
     private String lessonType;
 
-    public String getExpectComplete() {
+    public double getExpectComplete() {
         return expectComplete;
     }
 
-    public void setExpectComplete(String expectComplete) {
+    public void setExpectComplete(double expectComplete) {
         this.expectComplete = expectComplete;
     }
 

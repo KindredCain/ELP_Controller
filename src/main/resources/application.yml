@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: zwp
+    active: zwp-dev
   jpa:
     hibernate:
       ddl-auto: update
