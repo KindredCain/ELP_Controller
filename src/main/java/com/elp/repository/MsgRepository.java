@@ -20,6 +20,6 @@ public interface MsgRepository extends JpaRepository<Msg,String> {
     Msg findById(@Param("objectId") String objectId);
 
     //根据用户id查找用户的消息
-    @Query()
+    @Query("from Msg msg where msg.recUser = ?1")
     List<Msg> findByRecUser(String userId);
 }
