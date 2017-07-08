@@ -18,4 +18,8 @@ public interface DiscussRepository extends JpaRepository<Discuss,String> {
 
     @Query("from Discuss discuss where discuss.objectId = :objectId and discuss.delTime is null")
     Discuss findById(@Param("objectId") String objectId);
+
+    //根据课时查找对应的讨论
+    @Query(value = "")
+    List<Discuss> findByLessonNum(String LessonId);
 }

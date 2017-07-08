@@ -18,4 +18,12 @@ public interface CourseRecordRepository extends JpaRepository<CourseRecord,Strin
 
     @Query("from CourseRecord courseRecord where courseRecord.objectId = :objectId and courseRecord.delTime is null")
     CourseRecord findById(@Param("objectId") String objectId);
+
+    //根据课程id 统计学习情况
+    @Query("")
+    List<Object> findByCourseNumCount(String courseId);
+
+    //根据学生id 统计学习情况
+    @Query("")
+    List<Object> findByUserNumCount(String userId);
 }

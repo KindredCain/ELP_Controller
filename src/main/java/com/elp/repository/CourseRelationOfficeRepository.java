@@ -1,5 +1,6 @@
 package com.elp.repository;
 
+import com.elp.model.Course;
 import com.elp.model.CourseRelationOffice;
 import com.elp.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,4 +21,10 @@ public interface CourseRelationOfficeRepository extends JpaRepository<CourseRela
             "where courseRelationOffice.objectId = :objectId " +
             "and courseRelationOffice.delTime is null")
     CourseRelationOffice findById(@Param("objectId") String objectId);
+
+    //根据用户id查找对应的方向
+    @Query()
+    List<CourseRelationOffice> findByUserId();
+
+
 }

@@ -26,13 +26,23 @@ public interface CourseRepository extends JpaRepository<Course,String> {
             "and tb_course.course_name like ?2 ")
     Course findByCourseNameLike(String userId,String courseName);
 
-    //
+    //根据用户id和课程id返回课程相关类
     @Query(value = "")
-    Object[] findByCourseIdANDUserId();
+    Object[] findByCourseIdANDUserId(String userId,String CourseId);
 
+    //根据用户id查找用户学过的课程信息并根据最后观看时间倒序查看
     @Query(value = "")
-    List<Object[]> findByUserIdOrderByLastViewTime();
+    List<Object[]> findByUserIdOrderByLastViewTime(String userId);
 
+    //根据用户职位和课程id筛选推荐的课程
     @Query(value = "")
-    List<Course> findByOfficeIdAndCourseId();
+    Course findByOfficeIdAndCourseId(String officeId,String courseId);
+
+    //根据职位编号选出课程
+    @Query(value = "")
+    List<Course> findByOfficeId(String officeId);
+
+    //根据id查找出方向对应的课程
+    @Query()
+    List<Course> findAllBySubjectId();
 }
