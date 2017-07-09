@@ -6,11 +6,11 @@ import java.io.File;
  * Created by NWJ on 2017/7/5.
  */
 public enum PathEnum {
-    MAP_PATH("." + File.separator
+    MAP_PATH("src" + File.separator
             + "main" + File.separator
             + "resources" + File.separator
-            + "Item" + File.separator
-            + "mapsave"),;
+            + "item" + File.separator
+            + "mapsave.txt"),;
 
     private String path;
 

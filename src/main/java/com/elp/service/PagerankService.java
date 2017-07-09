@@ -3,6 +3,9 @@ package com.elp.service;
 import com.elp.enums.PathEnum;
 import com.elp.enums.ResultEnum;
 import com.elp.exception.MyException;
+import com.elp.repository.PagerankDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.util.*;
@@ -10,7 +13,11 @@ import java.util.*;
 /**
  * Created by NWJ on 2017/7/4.
  */
+
+@Service
 public class PagerankService {
+    @Autowired
+    private PagerankDao pagerankDao;
 
     Map<String, Double> rank;
     Map<String, Double> rankItem;
@@ -54,6 +61,26 @@ public class PagerankService {
     }
 
     /*获取联系*/
+    public void getMap(){
+        List<String> listItem;
+        List<Object[]> list = pagerankDao.findPagerank();
+        for(int i = 0; i < list.size(); i++){
+            Object[] item = list.get(i);
+            String keyA = (String) item[0];
+            String keyB = (String) item[1];
+            if (m.containsKey(keyA)){
+                listItem = m.get(keyA);
+                listItem.add(keyB);
+            } else {
+                listItem = new ArrayList<String>();
+                listItem.add(keyB);
+            }
+            m.put(keyA, listItem);
+        }
+        for (Map.Entry<String, List<String>> entry : m.entrySet()) {
+            rank.put(entry.getKey(), 1.0 / list.size());
+        }
+    }
 
     /*获取矩阵*/
     public void loadMap(String key){
@@ -69,28 +96,46 @@ public class PagerankService {
             try {
                 InputStreamReader read = new InputStreamReader(new FileInputStream(file));
                 BufferedReader bufferedReader = new BufferedReader(read);
-                time = Integer.valueOf(bufferedReader.readLine());
-                while ((lineTxt = bufferedReader.readLine()) != null) {
-                    num++;
-                    String uuid = lineTxt.substring(0, lineTxt.indexOf(";"));
-                    lineTxt.substring(lineTxt.indexOf(";") + 1);
-                    List<String> list = new ArrayList<String>();
-                    while(lineTxt.indexOf(",") > 0){
-                        list.add(lineTxt.substring(0, lineTxt.indexOf(",")));
-                        lineTxt.substring(lineTxt.indexOf(",") + 1);
+                if((lineTxt = bufferedReader.readLine()) != null) {
+                    time = Integer.valueOf(lineTxt);
+                    while ((lineTxt = bufferedReader.readLine()) != null) {
+                        num++;
+                        String uuid = lineTxt.substring(0, lineTxt.indexOf(";"));
+                        lineTxt = lineTxt.substring(lineTxt.indexOf(";") + 1);
+                        List<String> list = new ArrayList<String>();
+                        while (lineTxt.indexOf(",") > 0) {
+                            list.add(lineTxt.substring(0, lineTxt.indexOf(",")));
+                            lineTxt = lineTxt.substring(lineTxt.indexOf(",") + 1);
+                        }
+                        list.add(lineTxt);
+                        m.put(uuid, list);
                     }
-                    list.add(lineTxt);
-                    m.put(uuid, list);
+                    for (Map.Entry<String, List<String>> entry : m.entrySet()) {
+                        rank.put(entry.getKey(), 1.0 / num);
+                    }
+                } else {
+                    getMap();
+                    Calendar now = Calendar.getInstance();
+                    time = now.get(Calendar.YEAR) * 10000
+                            + (now.get(Calendar.MONTH) + 1) * 100
+                            + now.get(Calendar.DAY_OF_MONTH);
+                    saveMap();
                 }
-                for(Map.Entry<String, List<String>> entry : m.entrySet()){
-                    rank.put(entry.getKey(), 1.0/num);
-                }
+                bufferedReader.close();
+                read.close();
             } catch (Exception e){
                 throw new MyException(ResultEnum.ERROR_104);
             }
+        } else {
+            getMap();
+            Calendar now = Calendar.getInstance();
+            time = now.get(Calendar.YEAR) * 10000
+                    + (now.get(Calendar.MONTH) + 1) * 100
+                    + now.get(Calendar.DAY_OF_MONTH);
+            saveMap();
         }
         if(!this.isOkMap(key, time)){
-            /*获取联系*/
+            getMap();
             saveMap();
         }
     }
@@ -101,9 +146,9 @@ public class PagerankService {
         Integer time = now.get(Calendar.YEAR) * 10000
                 + (now.get(Calendar.MONTH) + 1) * 100
                 + now.get(Calendar.DAY_OF_MONTH);
-        if(!rankItem.containsKey(key)){
+        if(!m.containsKey(key)){
             return false;
-        } else if(time != day) {
+        } else if(!time.equals(day)) {
             return false;
         } else {
             return true;
