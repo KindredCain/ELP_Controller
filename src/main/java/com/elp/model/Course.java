@@ -16,8 +16,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "tb_course")
 public class Course extends BaseEntity{
-    @Column(nullable = false,length = 32)
-    private String officeNum;
+
     @Column(nullable = false,length = 32)
     private String adminNum;
     @Column(nullable = false,length = 32)
@@ -30,20 +29,24 @@ public class Course extends BaseEntity{
     @Column(nullable = false,length = 51)
     private String expectComplete;
 
+    public  Course() {
+
+    }
+
+    public Course(String adminNum,
+                  String courseName){
+
+        this.adminNum = adminNum;
+        this.courseName = courseName;
+        this.courseUrl = "";
+        this.expectComplete = "";
+    }
     public String getExpectComplete() {
         return expectComplete;
     }
 
     public void setExpectComplete(String expectComplete) {
         this.expectComplete = expectComplete;
-    }
-
-    public String getOfficeNum() {
-        return officeNum;
-    }
-
-    public void setOfficeNum(String officeNum) {
-        this.officeNum = officeNum;
     }
 
     public String getAdminNum() {

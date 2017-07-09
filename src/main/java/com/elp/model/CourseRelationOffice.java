@@ -10,6 +10,7 @@ import javax.persistence.Table;
  *
  -对应职位编号 officeNum(String varchar)
  -对应课程编号 courseNum(String varchar)
+ -房名名称  subjectName(String varchar)
  */
 @Entity
 @Table(name = "tb_course_office")
@@ -18,6 +19,26 @@ public class CourseRelationOffice extends BaseEntity{
     private String officeNum;
     @Column(nullable = false,length = 32)
     private String courseNum;
+    @Column(nullable = false,length = 32)
+    private String subjectName;
+
+    public CourseRelationOffice() {
+
+    }
+
+    public CourseRelationOffice(String officeNum,String courseNum){
+        this.officeNum = officeNum;
+        this.courseNum = courseNum;
+        this.subjectName = "test";
+    }
+
+    public String getSubjectName() {
+        return subjectName;
+    }
+
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
+    }
 
     public String getOfficeNum() {
         return officeNum;
