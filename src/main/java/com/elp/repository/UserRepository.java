@@ -24,4 +24,8 @@ public interface UserRepository extends JpaRepository<User,String> {
     @Query("from User user where user.officeNum = :officeNum and user.delTime is null")
     List<User> findByOfficeNum(@Param("officeNum") String officeNum);
 
+    //根据用户登录id查找用户
+    @Query(value = "from User user where user.logId = ?1")
+    User findByLogId(String logId);
+
 }

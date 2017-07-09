@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="deluser.do" method="post">
+    id <input type="text" name="userId"></input><br>
+    <input type="submit" name="submit" value="delete"></input>
+</form>
+<form action="adduser.do" method="post">
+    userName <input type="text" name="userName"></input><br>
+    userType <input type="text" name="userType"></input><br>
+    logId <input type="text" name="logId"></input><br>
+    pwd <input type="text" name="pwd"></input><br>
+    officeNum <input type="text" name="officeNum"></input><br>
+    <input type="submit" name="submit" value="delete"></input>
+</form>
+<form method="POST" enctype="multipart/form-data" action="adduserbyfile.do">
+    File to upload: <input type="file" name="file"><br />
+    <input type="submit" value="Upload"> Press here to upload the file!
+</form>
+<form action="testrelation.do" method="post">
+    <input type="submit" name="submit" value="testrelation"></input>
+</form>
+<form action="testrank.do" method="post">
+    <input type="submit" name="submit" value="testrank"></input>
+</form>
+<form action="addtestvlaue.do" method="post">
+    <input type="submit" name="submit" value="testrank"></input>
+</form>
+</body>
+</html>

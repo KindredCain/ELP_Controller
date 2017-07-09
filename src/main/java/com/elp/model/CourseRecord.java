@@ -1,8 +1,7 @@
 package com.elp.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by ASUS on 2017/7/2.
@@ -22,7 +21,25 @@ public class CourseRecord extends BaseEntity{
     private String courseNum;
     @Column(precision = 5,scale = 2)
     private double courseComplete;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastViewTime;
 
+    public Date getLastViewTime() {
+        return lastViewTime;
+    }
+
+    public void setLastViewTime(Date lastViewTime) {
+        this.lastViewTime = lastViewTime;
+    }
+
+    public CourseRecord() {
+
+    }
+
+    public  CourseRecord(String userNum,String courseNum){
+        this.userNum = userNum;
+        this.courseNum = courseNum;
+    }
     public String getUserNum() {
         return userNum;
     }

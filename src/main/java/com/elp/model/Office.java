@@ -22,6 +22,16 @@ public class Office extends  BaseEntity{
     @Column(nullable = false,length = 21)
     private String officeName;
 
+    public Office() {
+
+    }
+
+    public Office(String departmentNum,String officeInfo,
+                  String officeName){
+        this.departmentNum = departmentNum;
+        this.officeInfo = officeInfo;
+        this.officeName = officeName;
+    }
     public String getDepartmentNum() {
         return departmentNum;
     }

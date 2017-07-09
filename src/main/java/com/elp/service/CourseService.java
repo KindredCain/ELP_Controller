@@ -3,6 +3,7 @@ package com.elp.service;
 import com.elp.enums.ResultEnum;
 import com.elp.exception.MyException;
 import com.elp.model.Course;
+import com.elp.model.Office;
 import com.elp.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,20 @@ public class CourseService {
     //增
     public void add(Course course){
         courseRepository.save(course);
+    }
+    public void addCoursesTest(){
+
+        String courseNames[] = {"Java","JavaEE","Spring","Mybatis","SpringCloud",
+                                "React","Bootstrap","HTML","css"};
+        for(int i=0;i<courseNames.length;i++){
+            if (i < 5){
+                Course course = new Course("1",courseNames[i]);
+                courseRepository.save(course);
+            } else {
+                Course course = new Course("2",courseNames[i]);
+                courseRepository.save(course);
+            }
+        }
     }
     //删
     public void delete(Course course){
@@ -50,4 +65,5 @@ public class CourseService {
     public  Course findById(String id){
         return courseRepository.findById(id);
     }
+//    public List<Course> findBy
 }

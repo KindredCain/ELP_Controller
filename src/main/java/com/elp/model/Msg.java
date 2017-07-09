@@ -19,16 +19,34 @@ import java.util.Date;
 public class Msg extends BaseEntity{
     @Column(nullable = false,length = 32)
     private String recUser;
-    @Column(nullable = true,length = 32)
+    @Column(length = 32)
     private String sendUser;
     @Column(nullable = false,length = 21)
     private String msgType;
     @Column(nullable = false,length = 51)
     private String msgContent;
-    @Column(nullable = false,length = 51)
-    private String msgUrl;
     @Column(nullable = false,length = 21)
     private String msgStats;
+    @Column(length = 32)
+    private String courseNum;
+    @Column(length = 32)
+    private String  lessonNum;
+
+    public String getCourseNum() {
+        return courseNum;
+    }
+
+    public void setCourseNum(String courseNum) {
+        this.courseNum = courseNum;
+    }
+
+    public String getLessonNum() {
+        return lessonNum;
+    }
+
+    public void setLessonNum(String lessonNum) {
+        this.lessonNum = lessonNum;
+    }
 
     public String getRecUser() {
         return recUser;
@@ -62,13 +80,7 @@ public class Msg extends BaseEntity{
         this.msgContent = msgContent;
     }
 
-    public String getMsgUrl() {
-        return msgUrl;
-    }
 
-    public void setMsgUrl(String msgUrl) {
-        this.msgUrl = msgUrl;
-    }
 
     public String getMsgStats() {
         return msgStats;
