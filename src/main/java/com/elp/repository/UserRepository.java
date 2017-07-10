@@ -1,5 +1,6 @@
 package com.elp.repository;
 
+import com.elp.model.ShowUser;
 import com.elp.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -27,5 +28,4 @@ public interface UserRepository extends JpaRepository<User,String> {
     //根据用户登录id查询
     @Query(value = "from User user where user.logId = ?1 and user.delTime is null")
     User findByLogId(String logId);
-
 }

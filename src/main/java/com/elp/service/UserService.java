@@ -2,6 +2,7 @@ package com.elp.service;
 
 import com.elp.enums.ResultEnum;
 import com.elp.exception.MyException;
+import com.elp.model.ShowUser;
 import com.elp.model.User;
 import com.elp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,5 +59,4 @@ public class UserService {
     public List<User> findByUserType(String userType){
         return userRepository.findByUserType(userType);
     }
-
 }

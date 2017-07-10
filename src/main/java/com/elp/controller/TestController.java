@@ -20,6 +20,9 @@ import java.util.Map;
 @RestController
 @CrossOrigin
 public class TestController {
+    @Autowired
+    UserService userService;
+
     @PostMapping(value = "/posttest")
     public Result postTest(String name) {
         return Result.success(name);
@@ -28,5 +31,10 @@ public class TestController {
     @GetMapping(value = "/gettest/{name}")
     public Result getTest(@PathVariable("name") String name) {
         return Result.success(name);
+    }
+
+    @PostMapping(value = "/maxuser")
+    public Result maxUser() {
+        return Result.success(userService.findMax());
     }
 }
