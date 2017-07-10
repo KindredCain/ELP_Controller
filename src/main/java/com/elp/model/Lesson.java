@@ -9,6 +9,7 @@ import javax.persistence.*;
  * -课时介绍lessonInfo(String varchar )
  * -课时预计完成时间 expectComplete(String varchar)
  * -课时课件类型 lessonType(String varchar)
+ * -课时排序 lessonOrder(double double)
  */
 @Entity
 @Table(name = "tb_lesson")
@@ -23,6 +24,8 @@ public class Lesson extends BaseEntity{
     private String expectComplete;
     @Column(nullable = false,length = 32)
     private String lessonType;
+    @Column(precision = 4,scale = 4)
+    private double lessonOrder;
 
     public String getCourseNum() {
         return courseNum;
@@ -62,5 +65,13 @@ public class Lesson extends BaseEntity{
 
     public void setLessonType(String lessonType) {
         this.lessonType = lessonType;
+    }
+
+    public double getLessonOrder() {
+        return lessonOrder;
+    }
+
+    public void setLessonOrder(double lessonOrder) {
+        this.lessonOrder = lessonOrder;
     }
 }

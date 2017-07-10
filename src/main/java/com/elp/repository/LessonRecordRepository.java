@@ -29,4 +29,10 @@ public interface LessonRecordRepository extends JpaRepository<LessonRecord,Strin
             "set lessonRecord.delTime = ?2 " +
             "where lessonRecord.lessonNum = ?1")
     void deleteByLessonNum(String lessonNum, Timestamp delTime);
+
+    @Query(value = "update elp.tb_lessonrecord, elp.tb_lesson " +
+            "set tb_lessonrecord.del_time = ?2 " +
+            "where tb_lesson.object_id = tb_lessonrecord.lesson_num " +
+            "and tb_lesson.course_num = ?1", nativeQuery = true)
+    void deleteByCourseNum(String courseNum, Timestamp delTime);
 }
