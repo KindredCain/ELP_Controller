@@ -58,4 +58,12 @@ public class UserService {
     public List<User> findByUserType(String userType){
         return userRepository.findByUserType(userType);
     }
+    //登录
+    public User findByLogIdAndPwd(String logId, String pwd){
+        return userRepository.findByLogIdAndPwdAndDelTimeIsNull(logId, pwd);
+    }
+    //根据用户登录id查询
+    public User findByLogId(String logId){
+        return userRepository.findByLogId(logId);
+    }
 }

@@ -50,4 +50,18 @@ public class MsgService {
     public  Msg findById(String id){
         return msgRepository.findById(id);
     }
+    //用户id查询
+    List<Msg> findByRecUser(String userId){
+        return msgRepository.findByRecUser(userId);
+    }
+    //修改消息状态
+    public void updateMsgStats(Msg msg){
+        Msg msgItem = msgRepository.findById(msg.getObjectId());
+        if(msgItem == null){
+            throw new MyException(ResultEnum.ERROR_101);
+        } else{
+            msgItem.setMsgStats("1");
+            msgRepository.save(msgItem);
+        }
+    }
 }

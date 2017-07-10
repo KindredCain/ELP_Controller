@@ -7,10 +7,9 @@ import javax.persistence.Table;
 /**
  * Created by ASUS on 2017/7/2.
  * 职位
- *
- -所属部门编号 departmentNum(String varchar)
- -职位描述 officeInfo(String varchar)
- -职位名 officeName(String varchar)
+ * -所属部门编号 departmentNum(String varchar)
+ * -职位描述 officeInfo(String varchar)
+ * -职位名 officeName(String varchar)
  */
 @Entity
 @Table(name = "tb_office")
@@ -22,16 +21,6 @@ public class Office extends  BaseEntity{
     @Column(nullable = false,length = 21)
     private String officeName;
 
-    public Office() {
-
-    }
-
-    public Office(String departmentNum,String officeInfo,
-                  String officeName){
-        this.departmentNum = departmentNum;
-        this.officeInfo = officeInfo;
-        this.officeName = officeName;
-    }
     public String getDepartmentNum() {
         return departmentNum;
     }

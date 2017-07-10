@@ -24,20 +24,6 @@ public class CourseService {
     public void add(Course course){
         courseRepository.save(course);
     }
-    public void addCoursesTest(){
-
-        String courseNames[] = {"Java","JavaEE","Spring","Mybatis","SpringCloud",
-                                "React","Bootstrap","HTML","css"};
-        for(int i=0;i<courseNames.length;i++){
-            if (i < 5){
-                Course course = new Course("1",courseNames[i]);
-                courseRepository.save(course);
-            } else {
-                Course course = new Course("2",courseNames[i]);
-                courseRepository.save(course);
-            }
-        }
-    }
     //删
     public void delete(Course course){
         Course courseItem = courseRepository.findById(course.getObjectId());

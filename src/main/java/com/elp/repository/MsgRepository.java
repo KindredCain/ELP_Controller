@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -20,6 +21,11 @@ public interface MsgRepository extends JpaRepository<Msg,String> {
     Msg findById(@Param("objectId") String objectId);
 
     //根据用户id查找用户的消息
-    @Query("from Msg msg where msg.recUser = ?1")
-    List<Msg> findByRecUser(String userId);
+    @Query("from Msg msg where msg.recUser = ?1 and msg.delTime is null")
+    List<Msg> findByRecUser(String userNum);
+
+    @Query(value = "update Msg msg " +
+            "set msg.delTime = ?2 " +
+            "where msg.recUser = ?1")
+    void deleteByRecUser(String recUser, Timestamp delTime);
 }

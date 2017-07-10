@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -19,7 +20,13 @@ public interface LessonRecordRepository extends JpaRepository<LessonRecord,Strin
     @Query("from LessonRecord lessonRecord where lessonRecord.objectId = :objectId and lessonRecord.delTime is null")
     LessonRecord findById(@Param("objectId") String objectId);
 
-    @Query("from LessonRecord lessonRecord where lessonRecord.userNum = ?1 and lessonRecord.lessonNum = ?2")
-    List<LessonRecord> findByUserNumAndLessonNum(String userNum,String lessonNum);
+    @Query(value = "update LessonRecord lessonRecord " +
+            "set lessonRecord.delTime = ?2 " +
+            "where lessonRecord.userNum = ?1")
+    void deleteByUserNum(String userNum, Timestamp delTime);
 
+    @Query(value = "update LessonRecord lessonRecord " +
+            "set lessonRecord.delTime = ?2 " +
+            "where lessonRecord.lessonNum = ?1")
+    void deleteByLessonNum(String lessonNum, Timestamp delTime);
 }
