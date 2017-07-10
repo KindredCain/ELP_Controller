@@ -58,4 +58,5 @@ public class UserService {
     public List<User> findByUserType(String userType){
         return userRepository.findByUserType(userType);
     }
+
 }

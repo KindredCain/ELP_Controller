@@ -23,10 +23,10 @@ public interface CourseRelationOfficeRepository extends JpaRepository<CourseRela
     CourseRelationOffice findById(@Param("objectId") String objectId);
 
     //根据用户id查找对应的方向
-    @Query(value = "SELECT tbc "+
-            " FROM tb_course_office as tbc, tb_user as tbu  "+
-            " where tbu.object_id = ?1 and tbc.office_num = tbu.office_num ",nativeQuery = true)
-    List<CourseRelationOffice> findByUserId(String userId);
+    @Query(value = "SELECT tbc,tbco "+
+            " FROM tb_course_office as tbc, tb_user as tbu, tb_course as tbco "+
+            " where tbu.object_id = ?1 and tbc.office_num = tbu.office_num  and tbco.objectNum = tbc.course_num and tbc.del_time is NULL ",nativeQuery = true)
+    List<Object[]> findByUserId(String userId);
 
 
 }

@@ -62,8 +62,19 @@ public class CourseRecordService {
         List<CourseRecord> list = courseRecordRepository.findAll();
         return  list;
     }
+    //根据课程id查找课程统计情况
+    public List<CourseRecord> findAllByCourseNum(String courseNum){
+        List<CourseRecord> list = courseRecordRepository.findByCourseNum(courseNum);
+        return list;
+    }
+    //根据用户id查找课程统计情况
+    public List<CourseRecord> findAllByUserNum(String userNum){
+        List<CourseRecord> list = courseRecordRepository.findByUserNum(userNum);
+        return list;
+    }
     //主key查询
     public  CourseRecord findById(String id){
         return courseRecordRepository.findById(id);
     }
+
 }

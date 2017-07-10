@@ -24,9 +24,9 @@ public interface CourseRecordRepository extends JpaRepository<CourseRecord,Strin
 
     //根据学生id 统计学习情况
     @Query("from CourseRecord courseRecord where courseRecord.userNum = :userNum and courseRecord.delTime is null")
-    List<Object> findByUserNum(@Param("userNum") String userNum);
+    List<CourseRecord> findByUserNum(@Param("userNum") String userNum);
 
     //根据用户id和课程id返回课程记录相关类
-    @Query("from CourseRecord courseRecord where courseRecord.courseNum = ?1 and courseRecord.userNum = ?2")
+    @Query("from CourseRecord courseRecord where courseRecord.courseNum = ?1 and courseRecord.userNum = ?2 and  courseRecord.delTime is null")
     List<CourseRecord> findByCourseNumAndUserNum(String userNum,String CourseNum);
 }

@@ -27,5 +27,4 @@ public interface UserRepository extends JpaRepository<User,String> {
     //根据用户登录id查找用户
     @Query(value = "from User user where user.logId = ?1")
     User findByLogId(String logId);
-
 }

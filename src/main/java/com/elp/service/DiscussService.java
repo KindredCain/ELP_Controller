@@ -46,6 +46,11 @@ public class DiscussService {
         List<Discuss> list = discussRepository.findAll();
         return  list;
     }
+    //
+    public List<Discuss> findAllByLessonId(String lessonId){
+        List<Discuss> list = discussRepository.findByLessonNum(lessonId);
+        return list;
+    }
     //主key查询
     public  Discuss findById(String id){
         return discussRepository.findById(id);
