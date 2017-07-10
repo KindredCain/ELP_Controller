@@ -4,13 +4,11 @@ import javax.persistence.*;
 /**
  * Created by ASUS on 2017/7/2.
  * 课时
- *
- -所属课程编号courseNum(String varchar 外键)
- -课时名lessonName（String varchar ）
- -课时介绍lessonInfo(String varchar )
- -课时课件类型 lessonType(String varchar)
- -课时预计完成时间 expectComplete(String varchar)
-
+ * -所属课程编号courseNum(String varchar 外键)
+ * -课时名lessonName（String varchar ）
+ * -课时介绍lessonInfo(String varchar )
+ * -课时预计完成时间 expectComplete(String varchar)
+ * -课时课件类型 lessonType(String varchar)
  */
 @Entity
 @Table(name = "tb_lesson")
@@ -21,18 +19,10 @@ public class Lesson extends BaseEntity{
     private String lessonName;
     @Column(length = 51)
     private String lessonInfo;
-    @Column(precision = 5,scale = 2)
-    private double expectComplete;
+    @Column(length = 51)
+    private String expectComplete;
     @Column(nullable = false,length = 32)
     private String lessonType;
-
-    public double getExpectComplete() {
-        return expectComplete;
-    }
-
-    public void setExpectComplete(double expectComplete) {
-        this.expectComplete = expectComplete;
-    }
 
     public String getCourseNum() {
         return courseNum;
@@ -58,6 +48,14 @@ public class Lesson extends BaseEntity{
         this.lessonInfo = lessonInfo;
     }
 
+    public String getExpectComplete() {
+        return expectComplete;
+    }
+
+    public void setExpectComplete(String expectComplete) {
+        this.expectComplete = expectComplete;
+    }
+
     public String getLessonType() {
         return lessonType;
     }
@@ -65,6 +63,4 @@ public class Lesson extends BaseEntity{
     public void setLessonType(String lessonType) {
         this.lessonType = lessonType;
     }
-
-
 }

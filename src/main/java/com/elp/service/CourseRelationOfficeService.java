@@ -29,18 +29,6 @@ public class CourseRelationOfficeService {
     public void add(CourseRelationOffice courseRelationOffice){
         courseRelationOfficeRepository.save(courseRelationOffice);
     }
-    //增加测试数据test
-    public void addCourseRelationOfficesTest(List<Office> offices, List<Course> courses){
-        for(int i=0;i<courses.size();i++){
-            if (i < 5) {
-                CourseRelationOffice courseRelationOffice = new CourseRelationOffice(offices.get(0).getObjectId(),courses.get(i).getObjectId());
-                courseRelationOfficeRepository.save(courseRelationOffice);
-            } else {
-                CourseRelationOffice courseRelationOffice = new CourseRelationOffice(offices.get(1).getObjectId(),courses.get(i).getObjectId());
-                courseRelationOfficeRepository.save(courseRelationOffice);
-            }
-        }
-    }
     //删
     public void delete(CourseRelationOffice courseRelationOffice){
         CourseRelationOffice courseRelationOfficeItem = courseRelationOfficeRepository.findById(courseRelationOffice.getObjectId());

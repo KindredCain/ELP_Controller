@@ -7,10 +7,9 @@ import javax.persistence.Table;
 /**
  * Created by ASUS on 2017/7/2.
  * 课程、职位中间表
- *
- -对应职位编号 officeNum(String varchar)
- -对应课程编号 courseNum(String varchar)
- -房名名称  subjectName(String varchar)
+ * -对应职位编号 officeNum(String varchar)
+ * -对应课程编号 courseNum(String varchar)
+ * -方向名称  subjectName(String varchar)
  */
 @Entity
 @Table(name = "tb_course_office")
@@ -19,18 +18,8 @@ public class CourseRelationOffice extends BaseEntity{
     private String officeNum;
     @Column(nullable = false,length = 32)
     private String courseNum;
-    @Column(nullable = false,length = 32)
+    @Column(length = 32)
     private String subjectName;
-
-    public CourseRelationOffice() {
-
-    }
-
-    public CourseRelationOffice(String officeNum,String courseNum){
-        this.officeNum = officeNum;
-        this.courseNum = courseNum;
-        this.subjectName = "test";
-    }
 
     public String getSubjectName() {
         return subjectName;

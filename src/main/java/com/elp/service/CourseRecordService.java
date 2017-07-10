@@ -25,20 +25,6 @@ public class CourseRecordService {
     public void add(CourseRecord courseRecord){
         courseRecordRepository.save(courseRecord);
     }
-    public void addCourseRecordsTest(List<User> usersList,List<Course> courses){
-//        String users[] = {usersList.get(0).getObjectId(),usersList.get(1).getObjectId(),usersList.get(1).getObjectId(),
-//                usersList.get(2).getObjectId(),usersList.get(2).getObjectId(),usersList.get(3).getObjectId(),
-//                usersList.get(3).getObjectId(),usersList.get(4).getObjectId(),usersList.get(5).getObjectId(),
-//                usersList.get(5).getObjectId(),usersList.get(6).getObjectId(),usersList.get(6).getObjectId()};
-//        String course[] = {courses.get(1).getObjectId(),courses.get(0).getObjectId(),courses.get(2).getObjectId(),
-//                courses.get(0).getObjectId(),courses.get(3).getObjectId(),courses.get(0).getObjectId(),
-//                courses.get(4).getObjectId(),courses.get(9).getObjectId(),courses.get(5).getObjectId(),
-//                            courses.get(6).getObjectId(),courses.get(8).getObjectId(),courses.get(7).getObjectId()};
-        for(int i=0;i<usersList.size();i++){
-            CourseRecord courseRecord = new CourseRecord(usersList.get(i).getObjectId(),courses.get(i).getObjectId());
-            courseRecordRepository.save(courseRecord);
-        }
-    }
     //删
     public void delete(CourseRecord courseRecord){
         CourseRecord courseRecordItem = courseRecordRepository.findById(courseRecord.getObjectId());

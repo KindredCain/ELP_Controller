@@ -6,9 +6,9 @@ import java.util.Date;
 /**
  * Created by ASUS on 2017/7/2.
  * 课时记录表
- * 所属用户编号userNum
- * 所属课时编号 lessonNum
- * 课时观看记录 lessonRecord
+ * -所属用户编号userNum
+ * -所属课时编号 lessonNum
+ * -课时观看记录 lessonRecord
  */
 
 @Entity
@@ -20,17 +20,6 @@ public class LessonRecord extends BaseEntity{
     private String lessonNum;
     @Column(length = 32)
     private String lessonRecord;
-    @Column(precision = 3,scale = 2)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastViewTime;
-
-    public Date getLastViewTime() {
-        return lastViewTime;
-    }
-
-    public void setLastViewTime(Date lastViewTime) {
-        this.lastViewTime = lastViewTime;
-    }
 
     public String getUserNum() {
         return userNum;
@@ -55,6 +44,4 @@ public class LessonRecord extends BaseEntity{
     public void setLessonRecord(String lessonRecord) {
         this.lessonRecord = lessonRecord;
     }
-
-
 }
