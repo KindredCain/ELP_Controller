@@ -10,7 +10,6 @@ import javax.persistence.*;
  * -课程总课时数 courseSumLesson(double double)(课程统计相关)
  * -课程预计完成时间 expectComplete(String varchar)
  * -课程权限 coursePower(int int)
- * -课程介绍 courseInfo(String varchar )
  */
 @Entity
 @Table(name = "tb_course")
@@ -29,8 +28,6 @@ public class Course extends BaseEntity{
     private String expectComplete;
     @Column(nullable = false)
     private int coursePower;
-    @Column(length = 51)
-    private String courseInfo;
 
     public String getAdminNum() {
         return adminNum;
@@ -78,13 +75,5 @@ public class Course extends BaseEntity{
 
     public void setCoursePower(int coursePower) {
         this.coursePower = coursePower;
-    }
-
-    public String getCourseInfo() {
-        return courseInfo;
-    }
-
-    public void setCourseInfo(String courseInfo) {
-        this.courseInfo = courseInfo;
     }
 }
