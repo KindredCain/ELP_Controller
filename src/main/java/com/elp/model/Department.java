@@ -7,8 +7,7 @@ import javax.persistence.Table;
 /**
  * Created by ASUS on 2017/7/2.
  * 部门
- *
- -部门描述 DepartmentInfo（String varchar）
+ * -部门描述 DepartmentInfo（String varchar）
  */
 @Entity
 @Table(name = "tb_department")

@@ -4,14 +4,13 @@ import javax.persistence.*;
 /**
  * Created by ASUS on 2017/7/2.
  * 课程
- *
- -对应职位编号 officeNum（String varchar 外键）
- -所属管理员用户编号 adminNum（String varchar 外键）
- -课程名称 courseName(String varchar)
- -课程目录url courseUrl( String varchar)
- -课程总课时数 courseSumLesson(double double)(课程统计相关)
- -课程预计完成时间 expectComplete(String varchar)
-
+ * -所属管理员用户编号 adminNum（String varchar 外键）
+ * -课程名称 courseName(String varchar)
+ * -课程目录url courseUrl( String varchar)
+ * -课程总课时数 courseSumLesson(double double)(课程统计相关)
+ * -课程预计完成时间 expectComplete(String varchar)
+ * -课程权限 coursePower(int int)
+ * -课程介绍 courseInfo(String varchar )
  */
 @Entity
 @Table(name = "tb_course")
@@ -26,28 +25,12 @@ public class Course extends BaseEntity{
     //总长度 小数点后的位数
     @Column(precision = 5,scale = 2)
     private double courseSumLesson;
-    @Column(nullable = false,length = 51)
+    @Column(length = 51)
     private String expectComplete;
-
-    public  Course() {
-
-    }
-
-    public Course(String adminNum,
-                  String courseName){
-
-        this.adminNum = adminNum;
-        this.courseName = courseName;
-        this.courseUrl = "";
-        this.expectComplete = "";
-    }
-    public String getExpectComplete() {
-        return expectComplete;
-    }
-
-    public void setExpectComplete(String expectComplete) {
-        this.expectComplete = expectComplete;
-    }
+    @Column(nullable = false)
+    private int coursePower;
+    @Column(length = 51)
+    private String courseInfo;
 
     public String getAdminNum() {
         return adminNum;
@@ -79,5 +62,29 @@ public class Course extends BaseEntity{
 
     public void setCourseSumLesson(double courseSumLesson) {
         this.courseSumLesson = courseSumLesson;
+    }
+
+    public String getExpectComplete() {
+        return expectComplete;
+    }
+
+    public void setExpectComplete(String expectComplete) {
+        this.expectComplete = expectComplete;
+    }
+
+    public int getCoursePower() {
+        return coursePower;
+    }
+
+    public void setCoursePower(int coursePower) {
+        this.coursePower = coursePower;
+    }
+
+    public String getCourseInfo() {
+        return courseInfo;
+    }
+
+    public void setCourseInfo(String courseInfo) {
+        this.courseInfo = courseInfo;
     }
 }

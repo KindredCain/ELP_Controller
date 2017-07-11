@@ -23,15 +23,6 @@ public class OfficeService {
     public void add(Office office){
         officeRepository.save(office);
     }
-
-    public void addOfficesTest(){
-        String infos[] = {" javaee","web"};
-        String names[] = {"javaeeDev","webDev"};
-        for(int i=0;i<2;i++){
-            Office office = new Office("1",infos[i],names[i]);
-            officeRepository.save(office);
-        }
-    }
     //删
     public void delete(Office office){
         Office officeItem = officeRepository.findById(office.getObjectId());

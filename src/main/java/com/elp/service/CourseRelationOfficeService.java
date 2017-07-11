@@ -26,20 +26,6 @@ public class CourseRelationOfficeService {
     public void add(CourseRelationOffice courseRelationOffice){
         courseRelationOfficeRepository.save(courseRelationOffice);
     }
-    public void addCourseRelationOfficesTest(List<Office> offices, List<Course> courses){
-//        String office[] = {"402805815d1bacfd015d1bad33ae0000","402805815d1bacfd015d1bad34520001"};
-//        String courseNames[] = {"Java","JavaEE","Spring","Mybatis","SpringCloud",
-//                "React","Bootstrap","HTML","css"};
-        for(int i=0;i<courses.size();i++){
-            if (i < 5) {
-                CourseRelationOffice courseRelationOffice = new CourseRelationOffice(offices.get(0).getObjectId(),courses.get(i).getObjectId());
-                courseRelationOfficeRepository.save(courseRelationOffice);
-            } else {
-                CourseRelationOffice courseRelationOffice = new CourseRelationOffice(offices.get(1).getObjectId(),courses.get(i).getObjectId());
-                courseRelationOfficeRepository.save(courseRelationOffice);
-            }
-        }
-    }
     //删
     public void delete(CourseRelationOffice courseRelationOffice){
         CourseRelationOffice courseRelationOfficeItem = courseRelationOfficeRepository.findById(courseRelationOffice.getObjectId());

@@ -8,11 +8,10 @@ import java.util.Date;
 /**
  * Created by ASUS on 2017/7/2.
  * 基础类
- *
- -编号 objectNum(String varchar)
- -创建时间 creatTime(data datatime)
- -修改时间 updateTime(data datatime)
- -删除时间 delTime(data datatime)
+ * -编号 objectNum(String varchar)
+ * -创建时间 creatTime(data datatime)
+ * -修改时间 updateTime(data datatime)
+ * -删除时间 delTime(data datatime)
  */
 @MappedSuperclass
 public class BaseEntity {
@@ -20,7 +19,6 @@ public class BaseEntity {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid")
     private String objectId;
-
     @Temporal(TemporalType.TIMESTAMP)
     private Date creatTime;
     @Temporal(TemporalType.TIMESTAMP)

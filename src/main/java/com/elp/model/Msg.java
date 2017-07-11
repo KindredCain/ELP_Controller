@@ -5,14 +5,13 @@ import java.util.Date;
 /**
  * Created by ASUS on 2017/7/2.
  * 消息
- *
- -接收用户编号 recUser(String varchar 外键)
- -发送用户编号 sendUser(String varchar 外键)
- -消息类型 msgType(String varchar)
- -消息内容 msgContent(String varchar)
- -指向url msgUrl(String varchar)
- -是否被查看过 msgStats(String varchar )
-
+ * -接收用户编号 recUser(String varchar 外键)
+ * -发送用户编号 sendUser(String varchar 外键)
+ * -消息类型 msgType(String varchar)
+ * -消息内容 msgContent(String varchar)
+ * -是否被查看过 msgStats(String varchar )
+ * -课程编号 courseNum(String varchar 外键)
+ * -课时编号 lessonNum(String varchar 外键)
  */
 @Entity
 @Table(name = "tb_msg")

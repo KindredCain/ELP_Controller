@@ -8,9 +8,9 @@ import javax.persistence.Table;
  * Created by ASUS on 2017/7/2.
  * 讨论
  * -课时编号 lessonNum(String varchar 外键)
- -回复讨论编号 recDiscussNum(String varchar 外码？)
- -发言人编号 talkUserNum(Stringvarchar 外键)
- -讨论内容 discussContent(String varchar)
+ * -回复讨论编号 reDiscussNum(String varchar 自连外键)
+ * -发言人编号 talkUserNum(Stringvarchar 外键)
+ * -讨论内容 discussContent(String varchar)
  */
 @Entity
 @Table(name = "tb_discuss")

@@ -2,11 +2,16 @@ package com.elp.service;
 
 import com.elp.enums.ResultEnum;
 import com.elp.exception.MyException;
+import com.elp.model.ShowUser;
 import com.elp.model.User;
+import com.elp.repository.LessonRecordRepository;
 import com.elp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,18 +23,23 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private BaseService baseService;
+    @Autowired
+    private LessonRecordRepository lessonRecordRepository;
 
     //增
     public void add(User user){
         userRepository.save(user);
     }
     //删
+    @Transactional
     public void delete(User user){
         User userItem = userRepository.findById(user.getObjectId());
         if(userItem == null){
             throw new MyException(ResultEnum.ERROR_101);
         } else{
             baseService.delete(userRepository, userItem);
+            Timestamp time = new Timestamp(new Date().getTime());
+            lessonRecordRepository.deleteByUserNum(user.getObjectId(), time);
         }
     }
     //改
@@ -57,5 +67,21 @@ public class UserService {
     //类型查询
     public List<User> findByUserType(String userType){
         return userRepository.findByUserType(userType);
+    }
+    //登录
+    public User findByLogIdAndPwd(String logId, String pwd){
+        return userRepository.findByLogIdAndPwdAndDelTimeIsNull(logId, pwd);
+    }
+    //根据用户登录id查询
+    public User findByLogId(String logId){
+        return userRepository.findByLogId(logId);
+    }
+    //最多课时用户查询
+    public List<ShowUser> findMax(){
+        return userRepository.findMax();
+    }
+    //他人查询用户
+    public List<ShowUser> findByLogIdFromOther(String logId){
+        return userRepository.findByLogIdFromOther(logId);
     }
 }
