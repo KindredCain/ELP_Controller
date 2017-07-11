@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -30,6 +30,20 @@
 <form action="addtestvlaue.do" method="post">
     <input type="submit" name="submit" value="testrank"></input>
 </form>
-
+<form action="searchcourses.do" method="post">
+    userid<input type="text" name="userId"></br>
+    coursenam<input type="text" name="courseName"></br>
+    <input type="submit" name="submit" value="searchcourses"></input>
+</form>
+<form action="viewusercourse.do" method="post">
+    userid<input type="text" name="userId"></br>
+    coursenum<input type="text" name="courseNum"></br>
+    <input type="submit" name="submit" value="viewusercourse"></input>
+</form>
+<form action="checkcourse.do" method="post">
+    userid<input type="text" name="userId"></br>
+    coursenum<input type="text" name="courseNum"></br>
+    <input type="submit" name="submit" value="checkcourse"></input>
+</form>
 </body>
 </html>

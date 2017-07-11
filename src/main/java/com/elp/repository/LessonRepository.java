@@ -21,4 +21,11 @@ public interface LessonRepository extends JpaRepository<Lesson,String> {
 
     @Query("from Lesson lesson where lesson.courseNum = ?1")
     List<Lesson> findByCourseNum(String courseNum);
+
+    //根据用户Id和课程编号查找对应课时和课时记录
+    @Query(value = "SELECT tbl, tblr "+
+                    "FROM tb_lesson as tbl, tb_lessonrecord as tblr "+
+                    "where tbl.course_num = ?1 and tblr.lesson_num = tbl.object_id and tblr.user_num = ?2 "+
+                    "and tbl.del_time is null and tblr.del_time is null ",nativeQuery = true)
+    List<Object[]> findAllByUserNumAndCourseNum(String courseNum,String userNum);
 }

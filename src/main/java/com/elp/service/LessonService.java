@@ -46,6 +46,12 @@ public class LessonService {
         List<Lesson> list = lessonRepository.findAll();
         return  list;
     }
+    //根据用户编号和课程编号查找对应的课时和课时记录
+    public List<Object[]> findAllByCourseNumAndUserNum(String courseNum,String userNum){
+        List<Object[]> list = lessonRepository.findAllByUserNumAndCourseNum(courseNum,userNum);
+        return list;
+    }
+
     //主key查询
     public  Lesson findById(String id){
         return lessonRepository.findById(id);

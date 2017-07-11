@@ -57,14 +57,13 @@ public class CourseService {
     }
 
     //根据用户id和课程id查询已学课程
-    public Object[] findLearndCourseAndRecodByUserIdAndCourseNum(String userId, String courseNum) {
-        Object[] objects = courseRepository.findByObjectIdAndCourseNum(userId, courseNum);
-        return objects;
+    public List<Object[]> findLearndCourseAndRecodByUserIdAndCourseNum(String userId, String courseNum) {
+        return courseRepository.findByObjectIdAndCourseNum(userId, courseNum);
     }
 
     //查找用户学过的课程，并根据最后观看时间倒序
     public List<Object[]> findAllLearndByUserId(String userId) {
-        List<Object[]> list = courseRepository.findByObjectIdOrderByLastViewTime(userId);
+        List<Object[]> list = courseRepository.findByObjectIdOrderByUpdateTime(userId);
         return list;
     }
 
@@ -88,6 +87,11 @@ public class CourseService {
     //查找最新的课程
     public List<Course> findAllOrderByCreatTime() {
         List<Course> list = courseRepository.findAllOrderByCreatTime();
+        return list;
+    }
+    //根据用户id查找用户可看的最新课程
+    public List<Course> findAllByUserIdOrderByCreatTime(String userId){
+        List<Course> list = courseRepository.findAllByUserIdOrderByCreatTime(userId);
         return list;
     }
     //查找学习人数最多的课程
