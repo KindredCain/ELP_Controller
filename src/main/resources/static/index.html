@@ -76,5 +76,31 @@
 <form action="findByCourseNumWithLessonRecord.do" method="post">
     <input type="submit" name="submit" value="findByCourseNumWithLessonRecord"></input>
 </form>
+<form action="delcourse.do" method="post">
+    courseId<input type="text" name="courseId"></br>
+    <input type="submit" name="submit" value="delcourse"></input>
+</form>
+@RequestParam("courseId")String courseId,@RequestParam("userId") String adminNum, @RequestParam("courseName") String courseName,
+@RequestParam("courseInfo")String courseInfo,@RequestParam("coursePower") String coursePower, @RequestParam("courseSumLesson") String courseSumLesson,
+@RequestParam("expectComplete") String expectComplete, @RequestParam("picUrl")
+<form action="editcourse.do" method="post">
+    courseId<input type="text" name="courseId"></br>
+    userId<input type="text" name="userId"></br>
+    courseName<input type="text" name="courseName"></br>
+    courseInfo<input type="text" name="courseInfo"></br>
+    coursePower<input type="text" name="coursePower"></br>
+    courseSumLesson<input type="text" name="courseSumLesson"></br>
+    expectComplete<input type="text" name="expectComplete"></br>
+    picUrl<input type="text" name="picUrl"></br>
+    <input type="submit" name="submit" value="editcourse"></input>
+</form>
+<form action="viewcourseanalysis.do" method="post">
+    courseId<input type="text" name="courseId"></br>
+    <input type="submit" name="submit" value="viewcourseanalysis"></input>
+</form>
+<form action="viewuseranalysis.do" method="post">
+    userId<input type="text" name="userId"></br>
+    <input type="submit" name="submit" value="viewuseranalysis"></input>
+</form>
 </body>
 </html>

@@ -145,32 +145,35 @@ public class CourseController {
     //删除课程
     @PostMapping(value = "/delcourse")
     public Result delCourse(@RequestParam("courseId") String courseId) {
-        Course course = new Course();
-        course.setObjectId(courseId);
-        courseService.delete(course);
+        Course course = courseService.findById(courseId);
+        if (course != null) {
+            course.setObjectId(courseId);
+            courseService.delete(course);
+            return Result.success();
+        }
         return Result.success();
     }
 
     //修改课程
     @PostMapping(value = "/editcourse")
-    public Result updateCourse(@RequestParam("userId") String adminNum, @RequestParam("courseName") String courseName,
-                               @RequestParam("coursePower") String coursePower, @RequestParam("courseSumLesson") String courseSumLesson,
-                               @RequestParam("expectComplete") String expectComplete, @RequestParam("courseUrl") String courseUrl) {
-        Course course = new Course();
-        course.setAdminNum(adminNum);
-        course.setCourseName(courseName);
-        course.setCoursePower(Integer.valueOf(coursePower));
-        course.setExpectComplete(expectComplete);
-        course.setCourseSumLesson(Double.valueOf(courseSumLesson));
-        //缺少课程info
-        course.setCourseUrl(courseUrl);
-        courseService.update(course);
+    public Result updateCourse(@RequestParam("courseId")String courseId,@RequestParam("userId") String adminNum, @RequestParam("courseName") String courseName,
+                               @RequestParam("courseInfo")String courseInfo,@RequestParam("coursePower") String coursePower, @RequestParam("courseSumLesson") String courseSumLesson,
+                               @RequestParam("expectComplete") String expectComplete, @RequestParam("picUrl") String picUrl) {
+        Course course = courseService.findById(courseId);
+        if (course != null){
+            course.setAdminNum(adminNum);
+            course.setCourseName(courseName);
+            course.setCoursePower(Integer.valueOf(coursePower));
+            course.setExpectComplete(expectComplete);
+            course.setCourseSumLesson(Double.valueOf(courseSumLesson));
+            course.setCourseInfo(courseInfo);
+            //缺少课程info
+            if(course.getCoursePic().equals(picUrl) == false){
+                course.setCoursePic(picUrl);
+            }
+            courseService.update(course);
+        }
         return Result.success();
     }
 
-    @PostMapping(value = "/checkcourse")
-    public Result checkCourse(@RequestParam("userId") String userId, @RequestParam("courseNum") String courseId) {
-        Course course = courseService.checkFindByUserIdAndCourseNum(userId, courseId);
-        return Result.success(course);
-    }
 }

@@ -24,12 +24,12 @@ public class CourseRecordController {
     @PostMapping(value = "/viewuseranalysis")
     public Result viewUserAnalysis(@RequestParam("userId") String userNum){
         List list = courseRecordService.findAllByUserNum(userNum);
-        return Result.success();
+        return Result.success(list);
     }
     @PostMapping(value = "/viewcourseanalysis")
     public Result viewCourseAnalysis(@RequestParam("courseId") String courseNum){
         List list = courseRecordService.findAllByCourseNum(courseNum);
-        return Result.success();
+        return Result.success(list);
     }
 
 }

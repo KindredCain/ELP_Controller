@@ -4,10 +4,14 @@ import com.elp.enums.ResultEnum;
 import com.elp.exception.MyException;
 import com.elp.model.Course;
 import com.elp.repository.CourseRepository;
+import com.elp.repository.LessonRecordRepository;
+import com.elp.repository.LessonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,6 +23,10 @@ public class CourseService {
     private CourseRepository courseRepository;
     @Autowired
     private BaseService baseService;
+    @Autowired
+    private LessonRepository lessonRepository;
+    @Autowired
+    private LessonRecordRepository lessonRecordRepository;
 
     //增
     public void add(Course course) {
@@ -32,6 +40,13 @@ public class CourseService {
         if (courseItem == null) {
             throw new MyException(ResultEnum.ERROR_101);
         } else {
+            Date date = new Date();
+            Timestamp timestamp = new Timestamp(date.getTime());
+            System.out.println("delete lesson");
+            lessonRepository.deleteByCourseNum(courseItem.getObjectId(),timestamp);
+            System.out.println("delete lesson success");
+            lessonRecordRepository.deleteByCourseNum(courseItem.getObjectId(),timestamp);
+            System.out.println("delete lessonRecord success");
             baseService.delete(courseRepository, courseItem);
         }
     }
