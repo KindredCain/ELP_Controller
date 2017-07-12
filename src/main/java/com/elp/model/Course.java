@@ -1,6 +1,8 @@
 package com.elp.model;
 
 import javax.persistence.*;
+import java.util.Date;
+
 /**
  * Created by ASUS on 2017/7/2.
  * 课程
@@ -34,6 +36,24 @@ public class Course extends BaseEntity{
     private String courseInfo;
     @Column(length = 200)
     private String coursePicUrl;
+
+    public Course(){
+
+    }
+    public Course(String objectId, Date createTime, Date delTime, Date updateTime, String adminNum, String courseName, String courseUrl, double courseSumLesson, String expectComplete, int coursePower, String courseInfo, String coursePicUrl) {
+        this.setObjectId(objectId);
+        this.setCreatTime(createTime);
+        this.setDelTime(delTime);
+        this.setUpdateTime(updateTime);
+        this.adminNum = adminNum;
+        this.courseName = courseName;
+        this.courseUrl = courseUrl;
+        this.setCourseSumLesson(courseSumLesson);
+        this.expectComplete = expectComplete;
+        this.setCoursePower(coursePower);
+        this.courseInfo = courseInfo;
+        this.coursePicUrl = coursePicUrl;
+    }
 
     public String getAdminNum() {
         return adminNum;

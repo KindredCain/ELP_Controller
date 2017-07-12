@@ -1,7 +1,6 @@
 package com.elp.controller;
 
-import com.elp.model.Course;
-import com.elp.model.CourseRecord;
+import com.elp.model.*;
 import com.elp.service.*;
 import com.elp.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -32,6 +32,8 @@ public class CourseController {
     private PagerankService pagerankService;
     @Autowired
     private FileService fileService;
+    @Autowired
+    private MsgService msgService;
 
     //模糊查询课程
     @PostMapping(value = "/searchcourses")
@@ -40,10 +42,9 @@ public class CourseController {
         List<Course> courseList = courseService.findAllByUserIdAndLikeCourseName(userId, courseName);
         return Result.success(courseList);
     }
-
     //查看用户选中的课程
     @PostMapping(value = "/viewusercourse")
-    public Result viewUserCourse(@RequestParam("userId") String userId, @RequestParam("courseNum") String courseNum) {
+    public Result viewUserCourse(@RequestParam("userId") String userId, @RequestParam("courseNum") String courseNum) throws ParseException {
         List list = courseService.findLearndCourseAndRecodByUserIdAndCourseNum(userId, courseNum);
         if (list.size() != 0) {
 
@@ -60,11 +61,30 @@ public class CourseController {
         returnMap.put("Course", objects[0]);
         returnMap.put("CourseRecord", objects[1]);
         //根据课程查找对应的课时和课时记录存疑需要另外测试
-        List<Object[]> lessonList = lessonService.findByCourseNumWithLessonRecord(userId, courseNum);
+        List<Object[]> lessonList = lessonService.findByCourseNumWithLessonRecord(courseNum,userId);
+        List<Map> tempMapList = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        for(int i=0;i<lessonList.size();i++){
+            Object[] tempobject = lessonList.get(i);
 
+            Lesson tempLesson = new Lesson((String)tempobject[0],(Date)tempobject[1],(Date)tempobject[2], (Date)tempobject[3],
+                    (String)tempobject[4],(String)tempobject[5],(String)tempobject[6],(String)tempobject[7],(String)tempobject[8],(double)tempobject[9]);
+            LessonRecord tempLessonRecord = new LessonRecord((String)tempobject[10],(Date)tempobject[11],(Date)tempobject[12],(Date)tempobject[13],(String)tempobject[14],(String)tempobject[15],(String)tempobject[16]);
+            //integer类型难以处理
+//            Course tempCourse = new Course((String)tempobject[17],(Date)tempobject[18],(Date)tempobject[19], (Date)tempobject[20],(String)tempobject[21],(String)tempobject[22],(String)tempobject[23],(double)tempobject[24],(String)tempobject[25],Integer.valueOf(tempobject[26].toString()).intValue(),(String)tempobject[27],(String)tempobject[28]);
+//            Course tempCourse = new Course();
+//            int temp = Integer.valueOf(tempobject[26].toString()).intValue();
+//            tempCourse.setCoursePower(temp);
+//            tempCourse.setCourseSumLesson((double) tempobject[24]);
+            Map tempMap = new HashMap();
+            tempMap.put("lesson",tempLesson);
+            tempMap.put("lessonRecord",tempLessonRecord);
+//            tempMap.put("Course",tempCourse);
+            tempMapList.add(tempMap);
+        }
+        returnMap.put("LessonList",tempMapList);
         return Result.success(returnMap);
     }
-
     //查看用户的历史记录
     @PostMapping(value = "/viewlearndhistory")
     public Result viewLearndHistory(@RequestParam("userId") String userId) {
@@ -80,7 +100,6 @@ public class CourseController {
         }
         return Result.success(returnList);
     }
-
     //查看用户所有允许查看的课程
     @PostMapping(value = "/viewallcourse")
     public Result viewAllCourse(@RequestParam("userId") String userId) {
@@ -97,7 +116,6 @@ public class CourseController {
         System.out.println(returnList.size());
         return Result.success(returnList);
     }
-
     //查看用户推荐课程
     @PostMapping(value = "/viewrecommendcourse")
     public Result viewRecommendCourse(@RequestParam("userId") String userId) {
@@ -113,7 +131,13 @@ public class CourseController {
         }
         return Result.success(returnMap);
     }
-
+    //根据方向名查找课程
+    @PostMapping(value = "/viewbysubjectname")
+    public Result viewBySubjectName(@RequestParam("subjectName") String subjectName,@RequestParam("userId") String userId){
+        List<Object[]> list = courseService.findAllBySubjectName(subjectName,userId);
+        System.out.println(list.size());
+        return Result.success(list);
+    }
     //添加课程
     @PostMapping(value = "/addcourse")
     public Result addCourse(@RequestParam("userId") String adminNum, @RequestParam("courseName") String courseName,
@@ -136,7 +160,7 @@ public class CourseController {
             folder.mkdirs();
         }
         course.setCourseUrl(path);
-        course.setCoursePic(picurl);
+        course.setCoursePicUrl(picurl);
 //        fileService.uploadFile(pic.getOriginalFilename(),path,pic);
         courseService.add(course);
         return Result.success();
@@ -160,18 +184,27 @@ public class CourseController {
                                @RequestParam("courseInfo")String courseInfo,@RequestParam("coursePower") String coursePower, @RequestParam("courseSumLesson") String courseSumLesson,
                                @RequestParam("expectComplete") String expectComplete, @RequestParam("picUrl") String picUrl) {
         Course course = courseService.findById(courseId);
-        if (course != null){
-            course.setAdminNum(adminNum);
+        if (course != null && course.getAdminNum().equals(adminNum)){
             course.setCourseName(courseName);
             course.setCoursePower(Integer.valueOf(coursePower));
             course.setExpectComplete(expectComplete);
             course.setCourseSumLesson(Double.valueOf(courseSumLesson));
             course.setCourseInfo(courseInfo);
-            //缺少课程info
-            if(course.getCoursePic().equals(picUrl) == false){
-                course.setCoursePic(picUrl);
-            }
+            course.setCoursePicUrl(picUrl);
             courseService.update(course);
+            //修改课程后发送消息
+            List<CourseRecord> courseRecourdList = courseRecordService.findAllByCourseNum(course.getObjectId());
+            for (int i=0;i<courseRecourdList.size();i++){
+                CourseRecord courseRecord = courseRecourdList.get(i);
+                Msg msg = new Msg();
+                msg.setCourseNum(course.getObjectId());
+                msg.setMsgStats("unreaded");
+                msg.setMsgType("课程修改");//course需要根据课程id返回对应所有的内容
+                msg.setSendUser(adminNum);
+                msg.setRecUser(courseRecord.getUserNum());
+                msg.setMsgContent("您学习的课程"+course.getCourseName()+"更新了新的内容");
+                msgService.add(msg);
+            }
         }
         return Result.success();
     }

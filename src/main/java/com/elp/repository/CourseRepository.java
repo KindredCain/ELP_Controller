@@ -28,8 +28,6 @@ public interface CourseRepository extends JpaRepository<Course,String> {
             "where tb_user.object_id = ?1 and tb_course.course_power <= tb_user.user_power "+
             "and tb_course.course_name like ?2  and tb_course.del_time is null",nativeQuery = true)
     List<Course> findByCourseNameLike(String userId,String courseName);
-
-
     //根据用户id查找用户学过的课程信息并根据最后观看时间倒序查看 已根据用户权限显示
     @Query(value =  "FROM Course course, Lesson lesson, LessonRecord lessonRecord  "+
                     "where lessonRecord.userNum = ?1 and lessonRecord.lessonNum = lesson.objectId and lesson.courseNum = course.objectId "+
@@ -77,5 +75,16 @@ public interface CourseRepository extends JpaRepository<Course,String> {
                     "where tbc.course_power <= tbu.user_power and tbu.object_id = ?1 "+
                     "and  tbc.del_time is null ",nativeQuery = true)
     public List<Course> findAllByUserIdOrderByCreatTime(String userId);
+    //
+    /*
+     @Query(value = "SELECT tbc.* "+
+            "FROM tb_course as tbc, tb_course_office as tbco, tb_user as tbu "+
+            "where tbco.subject_name = ?1 and tbc.object_id = tbco.course_num "+
+            "and tbu.object_id = userand tbc.del_time is null ",nativeQuery = true)
+     */
+    @Query("from Course course, CourseRelationOffice courseRelationOffice, User user "+
+            "where courseRelationOffice.subjectName = ?1 and course.objectId = courseRelationOffice.courseNum "+
+            "and user.objectId = ?2 and course.coursePower <= user.userPower and course.delTime is null ")
+    public List<Object[]> findAllBySubjectName(String subjctName,String userId);
 
 }

@@ -66,7 +66,10 @@ public class CourseService {
         List<Course> list = courseRepository.findAll();
         return list;
     }
-
+    //根据方向名查找
+    public List<Object[]> findAllBySubjectName(String subjectName,String userId){
+        return courseRepository.findAllBySubjectName(subjectName,userId);
+    }
     //根据id和课程名模糊查询课程
     public List<Course> findAllByUserIdAndLikeCourseName(String userId, String courseName) {
         List<Course> list = courseRepository.findByCourseNameLike(userId, courseName);

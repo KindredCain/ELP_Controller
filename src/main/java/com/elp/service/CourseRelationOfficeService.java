@@ -52,9 +52,14 @@ public class CourseRelationOfficeService {
         List<CourseRelationOffice> list = courseRelationOfficeRepository.findAll();
         return  list;
     }
+
+    //查找所包并根据方向名分类
+    public List<CourseRelationOffice> findAllGroupBySubjectName(){
+        return courseRelationOfficeRepository.findAllGroupBySubjectName();
+    }
     //根据用户id查询用户职位对应的所有方向
-    public List<Object[]> findAllByUserId(String userId){
-        List<Object[]> list = courseRelationOfficeRepository.findByUserId(userId);
+    public List<Object[]> findByUserIdGroupBySubjectName(String userId){
+        List<Object[]> list = courseRelationOfficeRepository.findByUserIdGroupBySubjectName(userId);
         return list;
     }
     //主key查询

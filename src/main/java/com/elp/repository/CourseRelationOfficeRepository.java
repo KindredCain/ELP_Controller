@@ -17,16 +17,21 @@ public interface CourseRelationOfficeRepository extends JpaRepository<CourseRela
     @Query("from CourseRelationOffice courseRelationOffice where courseRelationOffice.delTime is null")
     List<CourseRelationOffice> findAll();
 
+    @Query("from CourseRelationOffice courseRelationOffice where courseRelationOffice.delTime is null group by courseRelationOffice.subjectName")
+    List<CourseRelationOffice> findAllGroupBySubjectName();
+
     @Query("from CourseRelationOffice courseRelationOffice " +
-            "where courseRelationOffice.objectId = :objectId " +
+            "where courseRelationOffice.objectId = ?1 " +
             "and courseRelationOffice.delTime is null")
-    CourseRelationOffice findById(@Param("objectId") String objectId);
+    CourseRelationOffice findById(String objectId);
 
     //根据用户id查找对应的方向
-    @Query(value = "SELECT tbc,tbco "+
-            " FROM tb_course_office as tbc, tb_user as tbu, tb_course as tbco "+
-            " where tbu.object_id = ?1 and tbc.office_num = tbu.office_num  and tbco.objectNum = tbc.course_num and tbc.del_time is NULL ",nativeQuery = true)
-    List<Object[]> findByUserId(String userId);
+    @Query( "FROM CourseRelationOffice courseRelationOffice, User user "+
+            "where user.objectId = ?1 and courseRelationOffice.officeNum = user.officeNum  and courseRelationOffice.delTime is NULL "+
+            "group by courseRelationOffice.subjectName ")
+    List<Object[]> findByUserIdGroupBySubjectName(String userId);
+
+
 
 
 }

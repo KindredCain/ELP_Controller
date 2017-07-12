@@ -57,11 +57,12 @@ public interface LessonRepository extends JpaRepository<Lesson,String> {
             "tb_course.update_time couuptime, " +
             "tb_course.admin_num, " +
             "tb_course.course_name, " +
-            "tb_course.course_power, " +
-            "tb_course.course_sum_lesson, " +
             "tb_course.course_url, " +
+            "tb_course.course_sum_lesson, " +
             "tb_course.expect_complete couexp, " +
+            "tb_course.course_power, " +
             "tb_course.course_info " +
+            "tb_course.course_pic_url " +
             "FROM tb_lesson LEFT JOIN tb_lessonrecord " +
             "ON (tb_lesson.object_id = tb_lessonrecord.lesson_num " +
             "AND tb_lessonrecord.del_time IS NULL " +

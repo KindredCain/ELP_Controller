@@ -40,7 +40,8 @@ public class CourseRecordService {
         if(courseRecordItem == null){
             throw new MyException(ResultEnum.ERROR_101);
         } else{
-            courseRecordRepository.save(courseRecord);
+            courseRecordItem.setCourseComplete(courseRecord.getCourseComplete());
+            courseRecordRepository.save(courseRecordItem);
         }
     }
     //查询所有

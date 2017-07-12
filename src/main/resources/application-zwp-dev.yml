@@ -1,5 +1,5 @@
 server:
-  port: 8033
+  port: 8034
 spring:
   jpa:
     show-sql: true
