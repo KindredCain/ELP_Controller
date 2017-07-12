@@ -4,6 +4,7 @@ import com.elp.model.Lesson;
 import com.elp.model.LessonRecord;
 import com.elp.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -61,11 +62,11 @@ public interface LessonRepository extends JpaRepository<Lesson,String> {
             "tb_course.course_url, " +
             "tb_course.expect_complete couexp, " +
             "tb_course.course_info " +
-            "FROM elp.tb_lesson LEFT JOIN elp.tb_lessonrecord " +
+            "FROM tb_lesson LEFT JOIN tb_lessonrecord " +
             "ON (tb_lesson.object_id = tb_lessonrecord.lesson_num " +
             "AND tb_lessonrecord.del_time IS NULL " +
             "AND tb_lessonrecord.user_num = ?2) " +
-            "INNER JOIN elp.tb_course " +
+            "INNER JOIN tb_course " +
             "ON tb_course.object_id = tb_lesson.course_num " +
             "WHERE tb_lesson.del_time IS NULL " +
             "AND tb_lesson.object_id = ?1", nativeQuery = true)
@@ -99,17 +100,18 @@ public interface LessonRepository extends JpaRepository<Lesson,String> {
             "tb_course.course_url, " +
             "tb_course.expect_complete couexp, " +
             "tb_course.course_info " +
-            "FROM elp.tb_lesson LEFT JOIN elp.tb_lessonrecord " +
+            "FROM tb_lesson LEFT JOIN tb_lessonrecord " +
             "ON (tb_lesson.object_id = tb_lessonrecord.lesson_num " +
             "AND tb_lessonrecord.del_time IS NULL " +
             "AND tb_lessonrecord.user_num = ?2) " +
-            "INNER JOIN elp.tb_course " +
+            "INNER JOIN tb_course " +
             "ON tb_course.object_id = tb_lesson.course_num " +
             "WHERE tb_lesson.del_time IS NULL " +
             "AND tb_lesson.course_num = ?1 " +
             "ORDER BY tb_lesson.lesson_order", nativeQuery = true)
     List<Object[]> findByCourseNumWithLessonRecord(String courseNum, String userNum);
 
+    @Modifying
     @Query(value = "update Lesson lesson " +
             "set lesson.delTime = ?2 " +
             "where lesson.courseNum = ?1")

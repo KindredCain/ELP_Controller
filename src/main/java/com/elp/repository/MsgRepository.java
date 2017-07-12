@@ -3,6 +3,7 @@ package com.elp.repository;
 import com.elp.model.Msg;
 import com.elp.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -24,6 +25,7 @@ public interface MsgRepository extends JpaRepository<Msg,String> {
     @Query("from Msg msg where msg.recUser = ?1 and msg.delTime is null")
     List<Msg> findByRecUser(String userNum);
 
+    @Modifying
     @Query(value = "update Msg msg " +
             "set msg.delTime = ?2 " +
             "where msg.recUser = ?1")
