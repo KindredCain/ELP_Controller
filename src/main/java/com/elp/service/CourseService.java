@@ -7,6 +7,7 @@ import com.elp.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -24,7 +25,8 @@ public class CourseService {
         courseRepository.save(course);
     }
 
-    //删
+    //删 事务注释
+    @Transactional
     public void delete(Course course) {
         Course courseItem = courseRepository.findById(course.getObjectId());
         if (courseItem == null) {
@@ -63,7 +65,7 @@ public class CourseService {
 
     //查找用户学过的课程，并根据最后观看时间倒序
     public List<Object[]> findAllLearndByUserId(String userId) {
-        List<Object[]> list = courseRepository.findByObjectIdOrderByUpdateTime(userId);
+        List<Object[]> list = courseRepository.findByUserNumOrderByUpdateTime(userId);
         return list;
     }
 

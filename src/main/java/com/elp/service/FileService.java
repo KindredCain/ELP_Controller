@@ -21,10 +21,10 @@ public class FileService {
     public void uploadFile(String fileName, String path, MultipartFile file) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
         String str = sdf.format(new Date());
-        File uploadFile = new File(path);
-        if (!uploadFile.exists()) {
-            uploadFile.mkdirs();
-        }
+//        File uploadFile = new File(path);
+//        if (!uploadFile.exists()) {
+//            uploadFile.mkdirs();
+//        }
         File localFile = new File(path + File.separator + fileName);
         try {
             file.transferTo(localFile);

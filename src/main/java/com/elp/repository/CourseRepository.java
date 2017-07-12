@@ -32,10 +32,10 @@ public interface CourseRepository extends JpaRepository<Course,String> {
 
     //根据用户id查找用户学过的课程信息并根据最后观看时间倒序查看 已根据用户权限显示
     @Query(value =  "FROM Course course, Lesson lesson, LessonRecord lessonRecord  "+
-                    "where lessonRecord.user_num = ?1 and lessonRecord.lesson_num = lesson.object_id and tbl.course_num = course.object_id "+
-                    "and lessonRecord.update_time is null"+
-                    "order by tblr.update_time")
-    List<Object[]> findByObjectIdOrderByUpdateTime(String userId);
+                    "where lessonRecord.userNum = ?1 and lessonRecord.lessonNum = lesson.objectId and lesson.courseNum = course.objectId "+
+                    "and lessonRecord.updateTime is null "+
+                    "order by lessonRecord.updateTime ")
+    List<Object[]> findByUserNumOrderByUpdateTime(String userId);
     //根据课程和用户id 查找用户学过的课程和课程记录
     @Query(value = "from Course course, CourseRecord courseRecord "+
             "where courseRecord.userNum = ?1 and courseRecord.courseNum = ?2 and courseRecord.courseNum = course.objectId and  courseRecord.delTime is null")
@@ -52,10 +52,9 @@ public interface CourseRepository extends JpaRepository<Course,String> {
                     "where tbco.office_num = ?1 and tbc.object_id = tbco.course_num and  tbc.del_time is null ",nativeQuery = true)
     List<Course> findByOfficeId(String officeId);
     //根据用户id选出课程
-    @Query(value = "SELECT tbc, tbco"+
-            "FROM tb_course as tbc, tb_course_office as tbco, tb_user as tbu "+
-            "where tbu.object_id = ?1 and tbc.object_id = tbco.course_num "+
-            "and tbc.course_power <= tbu.user_power and  tbc.del_time is null ",nativeQuery = true)
+    @Query("FROM Course course, CourseRelationOffice courseRelationOffice, User user "+
+            "where user.objectId = ?1 and course.objectId = courseRelationOffice.courseNum "+
+            "and course.coursePower <= user.userPower and  course.delTime is null ")
     List<Object[]> findAllByUserId(String userId);
     //根据方向id查找出方向对应的课程
     @Query(value = "SELECT tbc "+
@@ -63,7 +62,7 @@ public interface CourseRepository extends JpaRepository<Course,String> {
             "where tbco.object_id = ?1 and tbc.object_id = tbco.course_num and  tbc.del_time is null ",nativeQuery = true)
     List<Course> findAllBySubjectId(String subjectId);
     //查找学的人最多的课程
-    @Query(value = "SELECT tbc "+
+    @Query(value = "SELECT tbc.* "+
             "FROM tb_course as tbc, tb_courserecord as tbcr "+
             "where tbc.object_id = tbcr.course_num and tbc.del_time is null and "+
             "group by tbc.object_id "+

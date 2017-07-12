@@ -45,5 +45,27 @@
     coursenum<input type="text" name="courseNum"></br>
     <input type="submit" name="submit" value="checkcourse"></input>
 </form>
+<form action="viewlearndhistory.do" method="post">
+    userid<input type="text" name="userId"></br>
+    <input type="submit" name="submit" value="viewlearndhistory"></input>
+</form>
+<form action="viewallcourse.do" method="post">
+    userid<input type="text" name="userId"></br>
+    <input type="submit" name="submit" value="viewallcourse"></input>
+</form>
+<form action="viewrecommendcourse.do" method="post">
+    userid<input type="text" name="userId"></br>
+    <input type="submit" name="submit" value="viewrecommendcourse"></input>
+</form>
+<form action="addcourse.do" enctype="multipart/form-data" method="post">
+    userid<input type="text" name="userId"></br>
+    courseName<input type="text" name="courseName"></br>
+    coursePower<input type="text" name="coursePower"></br>
+    courseSumLesson<input type="text" name="courseSumLesson"></br>
+    expectComplete<input type="text" name="expectComplete"></br>
+    courseInfo<input type="text" name="courseInfo"></br>
+    File to upload: <input type="file" name="pic"><br/>
+    <input type="submit" name="submit" value="addcourse"></input>
+</form>
 </body>
 </html>

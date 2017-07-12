@@ -10,6 +10,8 @@ import javax.persistence.*;
  * -课程总课时数 courseSumLesson(double double)(课程统计相关)
  * -课程预计完成时间 expectComplete(String varchar)
  * -课程权限 coursePower(int int)
+ * -课程介绍 courseInfo(String varchar )
+ * -图片地址 coursePic(String varchar)
  */
 @Entity
 @Table(name = "tb_course")
@@ -19,7 +21,7 @@ public class Course extends BaseEntity{
     private String adminNum;
     @Column(nullable = false,length = 32)
     private String courseName;
-    @Column(length = 51)
+    @Column(length = 255)
     private String courseUrl;
     //总长度 小数点后的位数
     @Column(precision = 5,scale = 2)
@@ -28,6 +30,26 @@ public class Course extends BaseEntity{
     private String expectComplete;
     @Column(nullable = false)
     private int coursePower;
+    @Column(length = 51)
+    private String courseInfo;
+    @Column(length = 255)
+    private String coursePic;
+
+    public String getCoursePic() {
+        return coursePic;
+    }
+
+    public void setCoursePic(String coursePic) {
+        this.coursePic = coursePic;
+    }
+
+    public String getCourseInfo() {
+        return courseInfo;
+    }
+
+    public void setCourseInfo(String courseInfo) {
+        this.courseInfo = courseInfo;
+    }
 
     public String getAdminNum() {
         return adminNum;
