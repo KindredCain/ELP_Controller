@@ -11,7 +11,10 @@ import javax.persistence.*;
  * -课程预计完成时间 expectComplete(String varchar)
  * -课程权限 coursePower(int int)
  * -课程介绍 courseInfo(String varchar )
+<<<<<<< HEAD
  * -图片地址 coursePic(String varchar)
+=======
+>>>>>>> refs/remotes/KindredCain/develop
  */
 @Entity
 @Table(name = "tb_course")
