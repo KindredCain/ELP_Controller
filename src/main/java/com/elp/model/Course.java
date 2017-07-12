@@ -11,10 +11,7 @@ import javax.persistence.*;
  * -课程预计完成时间 expectComplete(String varchar)
  * -课程权限 coursePower(int int)
  * -课程介绍 courseInfo(String varchar )
-<<<<<<< HEAD
- * -图片地址 coursePic(String varchar)
-=======
->>>>>>> refs/remotes/KindredCain/develop
+ * -课程头像 coursePicUrl(Stirng varchar)
  */
 @Entity
 @Table(name = "tb_course")
@@ -35,24 +32,8 @@ public class Course extends BaseEntity{
     private int coursePower;
     @Column(length = 51)
     private String courseInfo;
-    @Column(length = 255)
-    private String coursePic;
-
-    public String getCoursePic() {
-        return coursePic;
-    }
-
-    public void setCoursePic(String coursePic) {
-        this.coursePic = coursePic;
-    }
-
-    public String getCourseInfo() {
-        return courseInfo;
-    }
-
-    public void setCourseInfo(String courseInfo) {
-        this.courseInfo = courseInfo;
-    }
+    @Column(length = 200)
+    private String coursePicUrl;
 
     public String getAdminNum() {
         return adminNum;
@@ -100,5 +81,22 @@ public class Course extends BaseEntity{
 
     public void setCoursePower(int coursePower) {
         this.coursePower = coursePower;
+    }
+
+
+    public String getCourseInfo() {
+        return courseInfo;
+    }
+
+    public void setCourseInfo(String courseInfo) {
+        this.courseInfo = courseInfo;
+    }
+
+    public String getCoursePicUrl() {
+        return coursePicUrl;
+    }
+
+    public void setCoursePicUrl(String coursePicUrl) {
+        this.coursePicUrl = coursePicUrl;
     }
 }
