@@ -27,5 +27,5 @@ public interface DiscussRepository extends JpaRepository<Discuss,String> {
     @Query("from Discuss discuss, User user, Lesson lesson, Course course "+
             "where discuss.objectId = ?1 and lesson.objectId = discuss.lessonNum and course.objectId = lesson.courseNum "+
             "and user.objectId = discuss.talkUserNum and discuss.delTime is null")
-    List<Object[]> findAllById(String discussId);
+    List<Object[]> findByIdWithLessonAndCourse(String discussId);
 }

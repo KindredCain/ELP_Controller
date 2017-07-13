@@ -23,7 +23,7 @@ public class OfficeController {
     @Autowired
     private OfficeService officeService;
 
-    @PostMapping(value = "viewalloffice.do")
+    @PostMapping(value = "/viewalloffice")
     public Result viewAllOffice(){
         List<Object[]> list = officeService.findAllWithDepartment();
         Map returmMap = new HashMap<>();

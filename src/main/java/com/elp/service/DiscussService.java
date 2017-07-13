@@ -47,8 +47,8 @@ public class DiscussService {
         return  list;
     }
     //根据讨论id找到讨论、用户、课时和课程
-    public List<Object[]> findAllById(String discussId){
-        return discussRepository.findAllById(discussId);
+    public List<Object[]> findByIdWithLessonAndCourse(String discussId){
+        return discussRepository.findByIdWithLessonAndCourse(discussId);
     }
     //查找讨论和对应的用户
     public List<Object[]> findAllByLessonId(String lessonId){

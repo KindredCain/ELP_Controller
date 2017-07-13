@@ -25,15 +25,16 @@ public class CourseRecordController {
     @Autowired
     private CourseRecordService courseRecordService;
 
+    //显示用户统计数据
     @PostMapping(value = "/viewuseranalysis")
     public Result viewUserAnalysis(@RequestParam("userId") String userNum){
         List list = courseRecordService.findAllByUserNum(userNum);
-//        List<Map> returnList = new ArrayList<>();
         Map tempMap = new HashMap();
         tempMap.put("Nums",list.size());
         tempMap.put("courseRecord",list);
         return Result.success(tempMap);
     }
+    //显示课程统计数据
     @PostMapping(value = "/viewcourseanalysis")
     public Result viewCourseAnalysis(@RequestParam("courseId") String courseNum){
         List list = courseRecordService.findAllByCourseNum(courseNum);
@@ -42,6 +43,7 @@ public class CourseRecordController {
         tempMap.put("courseRecord",list);
         return Result.success(tempMap);
     }
+    //更新课程记录
     @PostMapping(value = "/updatecourserecord")
     public Result updateCourseRecord(@RequestParam("courseComplete") String courseComplete,@RequestParam("courseRecordId") String courseRecordId){
         CourseRecord courseRecord = new CourseRecord();

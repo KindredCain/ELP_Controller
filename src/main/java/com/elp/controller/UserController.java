@@ -8,6 +8,7 @@ import com.elp.service.CourseRecordService;
 import com.elp.service.FileService;
 import com.elp.service.UserService;
 import com.elp.util.Result;
+import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,10 +30,9 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserService userService;
-    @Autowired
-    private FileService fileService;
 
-    @PostMapping(value = "viewmyself.do")
+    //用户查看自己
+    @PostMapping(value = "/viewmyself")
     public Result viewMyself(@RequestParam("userId") String userId) {
         Object[] objects = userService.findByIdWithOffice(userId).get(0);
         Map returnMap = new HashMap();
@@ -43,6 +43,7 @@ public class UserController {
         return Result.success(returnMap);
     }
 
+    //用户查看其它用户信息
     @PostMapping(value = "/viewotheruser")
     public Result viewOtherUser(@RequestParam("logId") String logId) {
         ShowUser showUser = userService.findByLogIdFromOther(logId);
@@ -54,6 +55,7 @@ public class UserController {
         return Result.success(templist);
     }
 
+    //选出学霸
     @PostMapping(value = "/viewmaxshowusers")
     public Result viewMaxShowUsers() {
         List<ShowUser> showUserList = userService.findMax();
@@ -66,5 +68,19 @@ public class UserController {
         }
         returnMap.put("shouUserList", mapList);
         return Result.success(returnMap);
+    }
+
+    //修改用户信息，可修改用户名、图片地址和职位
+    @PostMapping(value = "/changeuserinfo")
+    public Result changeUserInfo(User user){
+        userService.updateInfo(user);
+        return Result.success();
+    }
+
+    //修改用户自己的密码
+    @PostMapping(value = "/changemypwd")
+    public Result changeMyPwd(User user,@RequestParam("newPwd") String newPwd){
+        userService.updateMyPwd(user,newPwd);
+        return Result.success();
     }
 }
