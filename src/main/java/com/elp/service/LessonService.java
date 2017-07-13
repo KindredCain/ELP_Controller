@@ -59,6 +59,7 @@ public class LessonService {
         List<Lesson> list = lessonRepository.findAll();
         return  list;
     }
+
     //主key查询
     public  Lesson findById(String id){
         return lessonRepository.findById(id);

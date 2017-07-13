@@ -40,7 +40,8 @@ public class CourseRecordService {
         if(courseRecordItem == null){
             throw new MyException(ResultEnum.ERROR_101);
         } else{
-            courseRecordRepository.save(courseRecord);
+            courseRecordItem.setCourseComplete(courseRecord.getCourseComplete());
+            courseRecordRepository.save(courseRecordItem);
         }
     }
     //查询所有
@@ -48,8 +49,19 @@ public class CourseRecordService {
         List<CourseRecord> list = courseRecordRepository.findAll();
         return  list;
     }
+    //根据课程id查找课程统计情况
+    public List<CourseRecord> findAllByCourseNum(String courseNum){
+        List<CourseRecord> list = courseRecordRepository.findByCourseNum(courseNum);
+        return list;
+    }
+    //根据用户id查找课程统计情况
+    public List<CourseRecord> findAllByUserNum(String userNum){
+        List<CourseRecord> list = courseRecordRepository.findByUserNum(userNum);
+        return list;
+    }
     //主key查询
     public  CourseRecord findById(String id){
         return courseRecordRepository.findById(id);
     }
+
 }

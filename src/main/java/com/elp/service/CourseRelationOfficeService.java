@@ -7,6 +7,7 @@ import com.elp.model.CourseRelationOffice;
 import com.elp.model.Office;
 import com.elp.model.User;
 import com.elp.repository.CourseRelationOfficeRepository;
+import com.elp.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,8 @@ public class CourseRelationOfficeService {
     private CourseRelationOfficeRepository courseRelationOfficeRepository;
     @Autowired
     private BaseService baseService;
+    @Autowired
+    private CourseRepository courseRepository;
 
     //增
     public void add(CourseRelationOffice courseRelationOffice){
@@ -48,6 +51,16 @@ public class CourseRelationOfficeService {
     public List<CourseRelationOffice> findAll(){
         List<CourseRelationOffice> list = courseRelationOfficeRepository.findAll();
         return  list;
+    }
+
+    //查找所包并根据方向名分类
+    public List<CourseRelationOffice> findAllGroupBySubjectName(){
+        return courseRelationOfficeRepository.findAllGroupBySubjectName();
+    }
+    //根据用户id查询用户职位对应的所有方向
+    public List<Object[]> findByUserIdGroupBySubjectName(String userId){
+        List<Object[]> list = courseRelationOfficeRepository.findByUserIdGroupBySubjectName(userId);
+        return list;
     }
     //主key查询
     public  CourseRelationOffice findById(String id){

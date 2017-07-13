@@ -21,6 +21,19 @@ public class LessonRecord extends BaseEntity{
     @Column(length = 32)
     private String lessonRecord;
 
+    public LessonRecord(){
+
+    }
+    public LessonRecord(String objectId, Date createTime, Date delTime, Date updateTime, String userNum, String lessonNum, String lessonRecord) {
+        this.setObjectId(objectId);
+        this.setCreatTime(createTime);
+        this.setDelTime(delTime);
+        this.setUpdateTime(updateTime);
+        this.userNum = userNum;
+        this.lessonNum = lessonNum;
+        this.lessonRecord = lessonRecord;
+    }
+
     public String getUserNum() {
         return userNum;
     }
