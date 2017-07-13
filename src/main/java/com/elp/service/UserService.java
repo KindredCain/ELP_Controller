@@ -51,6 +51,10 @@ public class UserService {
             userRepository.save(user);
         }
     }
+    //
+    public List<Object[]> findByIdWithOffice(String userId){
+        return userRepository.findByIdWithOffice(userId);
+    }
     //查询所有
     public List<User> findAll(){
         List<User> list = userRepository.findAll();

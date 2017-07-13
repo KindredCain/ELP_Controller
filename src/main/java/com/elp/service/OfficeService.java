@@ -46,6 +46,9 @@ public class OfficeService {
         List<Office> list = officeRepository.findAll();
         return  list;
     }
+    public List<Object[]> findAllWithDepartment(){
+        return officeRepository.findAllWithDepartment();
+    }
     //主key查询
     public  Office findById(String id){
         return officeRepository.findById(id);

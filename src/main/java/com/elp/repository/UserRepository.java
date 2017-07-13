@@ -19,6 +19,9 @@ public interface UserRepository extends JpaRepository<User,String> {
     @Query("from User user where user.objectId = :objectId and user.delTime is null")
     User findById(@Param("objectId") String objectId);
 
+    @Query("from User user, Office office where user.objectId = :objectId and office.objectId = user.officeNum and user.delTime is null")
+    List<Object[]> findByIdWithOffice(@Param("objectId") String objectId);
+
     @Query("from User user where user.userType = :userType and user.delTime is null")
     List<User> findByUserType(@Param("userType") String userType);
 
