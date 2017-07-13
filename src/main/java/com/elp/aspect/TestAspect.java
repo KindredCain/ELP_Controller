@@ -26,7 +26,7 @@ public class TestAspect {
 
     private final static Logger logger = LoggerFactory.getLogger(TestAspect.class);
 
-    @Pointcut("execution(public * com.elp.controller.TestController.*(..))")
+    @Pointcut("execution(public * com.elp.controller.*.*(..))")
     public void point(){}
 
     @Before("point()")

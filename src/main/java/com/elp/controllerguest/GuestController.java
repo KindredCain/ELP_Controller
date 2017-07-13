@@ -28,7 +28,7 @@ public class GuestController {
     @Autowired
     private OfficeService officeService;
 
-    @PostMapping(value = "login.do")
+    @PostMapping(value = "/login")
     public Result login (User user, HttpSession session){
         User loginUser = userService.findByLogIdAndPwd(user.getLogId(), user.getPwd());
         if(loginUser != null){
@@ -39,6 +39,7 @@ public class GuestController {
             Map result = new HashMap();
             result.put("User", loginUser);
             result.put("Office", office);
+            result.put("SessionId", session.getId());
             return Result.success(result);
         } else {
             throw new MyException(ResultEnum.ERROR_102);

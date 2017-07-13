@@ -5,6 +5,7 @@ import com.elp.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.query.Param;
@@ -87,4 +88,16 @@ public interface CourseRepository extends JpaRepository<Course,String> {
             "and user.objectId = ?2 and course.coursePower <= user.userPower and course.delTime is null ")
     public List<Object[]> findAllBySubjectName(String subjctName,String userId);
 
+    //课时数+1
+    @Modifying
+    @Query(value = "update Course course " +
+            "set course.courseSumLesson = course.courseSumLesson + 1 " +
+            "where course.objectId = ?1")
+    public void addCourseSumLesson (String objectId);
+    //课时数-1
+    @Modifying
+    @Query(value = "update Course course " +
+            "set course.courseSumLesson = course.courseSumLesson - 1 " +
+            "where course.objectId = ?1")
+    public void subCourseSumLesson (String objectId);
 }
