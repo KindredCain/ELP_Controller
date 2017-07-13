@@ -20,6 +20,8 @@ public interface LessonRecordRepository extends JpaRepository<LessonRecord,Strin
     @Query("from LessonRecord lessonRecord where lessonRecord.objectId = :objectId and lessonRecord.delTime is null")
     LessonRecord findById(@Param("objectId") String objectId);
 
+    List<LessonRecord> findAllByLessonNumAndDelTimeIsNull(String lessonNum);
+
     @Modifying
     @Query(value = "update LessonRecord lessonRecord " +
             "set lessonRecord.delTime = ?2 " +

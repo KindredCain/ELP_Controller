@@ -51,9 +51,32 @@ public class UserService {
             userRepository.save(user);
         }
     }
-    //
-    public List<Object[]> findByIdWithOffice(String userId){
+
+    //查询用户并附加上职位
+    public List<Object[]> findByIdWithOffice(String userId) {
         return userRepository.findByIdWithOffice(userId);
+    }
+
+    //改权限
+    public void updatePower(User user){
+        User userItem = userRepository.findById(user.getObjectId());
+        if(userItem == null){
+            throw new MyException(ResultEnum.ERROR_101);
+        } else{
+            userItem.setUserPower(user.getUserPower());
+            userRepository.save(userItem);
+        }
+    }
+    //改密码
+    public void updatePwd(User user){
+        User userItem = userRepository.findById(user.getObjectId());
+        if(userItem == null){
+            throw new MyException(ResultEnum.ERROR_101);
+        } else{
+            userItem.setPwd("12345678");
+            userRepository.save(userItem);
+        }
+
     }
     //查询所有
     public List<User> findAll(){
@@ -85,7 +108,7 @@ public class UserService {
         return userRepository.findMax();
     }
     //他人查询用户
-    public List<ShowUser> findByLogIdFromOther(String logId){
+    public ShowUser findByLogIdFromOther(String logId){
         return userRepository.findByLogIdFromOther(logId);
     }
 }
