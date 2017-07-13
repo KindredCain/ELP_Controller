@@ -50,7 +50,7 @@ public class Course extends BaseEntity{
         this.courseUrl = courseUrl;
         this.setCourseSumLesson(courseSumLesson);
         this.expectComplete = expectComplete;
-        this.setCoursePower(coursePower);
+        this.coursePower =  coursePower;
         this.courseInfo = courseInfo;
         this.coursePicUrl = coursePicUrl;
     }

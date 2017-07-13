@@ -70,16 +70,13 @@ public class CourseController {
             Lesson tempLesson = new Lesson((String)tempobject[0],(Date)tempobject[1],(Date)tempobject[2], (Date)tempobject[3],
                     (String)tempobject[4],(String)tempobject[5],(String)tempobject[6],(String)tempobject[7],(String)tempobject[8],(double)tempobject[9]);
             LessonRecord tempLessonRecord = new LessonRecord((String)tempobject[10],(Date)tempobject[11],(Date)tempobject[12],(Date)tempobject[13],(String)tempobject[14],(String)tempobject[15],(String)tempobject[16]);
+
             //integer类型难以处理
-//            Course tempCourse = new Course((String)tempobject[17],(Date)tempobject[18],(Date)tempobject[19], (Date)tempobject[20],(String)tempobject[21],(String)tempobject[22],(String)tempobject[23],(double)tempobject[24],(String)tempobject[25],Integer.valueOf(tempobject[26].toString()).intValue(),(String)tempobject[27],(String)tempobject[28]);
-//            Course tempCourse = new Course();
-//            int temp = Integer.valueOf(tempobject[26].toString()).intValue();
-//            tempCourse.setCoursePower(temp);
-//            tempCourse.setCourseSumLesson((double) tempobject[24]);
+            Course tempCourse = new Course((String)tempobject[17],(Date)tempobject[18],(Date)tempobject[19], (Date)tempobject[20],(String)tempobject[21],(String)tempobject[22],(String)tempobject[23],(double)tempobject[24],(String)tempobject[25],(int) tempobject[26],(String)tempobject[27],(String)tempobject[28]);
             Map tempMap = new HashMap();
             tempMap.put("lesson",tempLesson);
             tempMap.put("lessonRecord",tempLessonRecord);
-//            tempMap.put("Course",tempCourse);
+            tempMap.put("Course",tempCourse);
             tempMapList.add(tempMap);
         }
         returnMap.put("LessonList",tempMapList);
