@@ -79,8 +79,6 @@ public class Msg extends BaseEntity{
         this.msgContent = msgContent;
     }
 
-
-
     public String getMsgStats() {
         return msgStats;
     }

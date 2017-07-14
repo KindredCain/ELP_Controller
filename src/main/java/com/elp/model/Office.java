@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tb_office")
 public class Office extends  BaseEntity{
-    @Column(nullable = false,length = 32)
+    @Column(length = 32)
     private String departmentNum;
     @Column(nullable = false,length = 51)
     private String officeInfo;

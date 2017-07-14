@@ -1,10 +1,10 @@
 server:
-  port: 9099
+  port: 8034
 spring:
   jpa:
     show-sql: true
   datasource:
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://127.0.0.1:3306/elp
+      url: jdbc:mysql://127.0.0.1:3306/elp?characterEncoding=utf-8
       username: zwpjava
       password: 12345678

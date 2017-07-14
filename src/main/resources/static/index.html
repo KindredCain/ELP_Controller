@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -30,9 +30,42 @@
 <form action="addtestvlaue.do" method="post">
     <input type="submit" name="submit" value="testrank"></input>
 </form>
-
-<form action="maxuser.do" method="post">
-    <input type="submit" name="submit" value="MaxUser"></input>
+<form action="searchcourses.do" method="post">
+    userid<input type="text" name="userId"></br>
+    coursenam<input type="text" name="courseName"></br>
+    <input type="submit" name="submit" value="searchcourses"></input>
+</form>
+<form action="viewusercourse.do" method="post">
+    userid<input type="text" name="userId"></br>
+    coursenum<input type="text" name="courseNum"></br>
+    <input type="submit" name="submit" value="viewusercourse"></input>
+</form>
+<form action="checkcourse.do" method="post">
+    userid<input type="text" name="userId"></br>
+    coursenum<input type="text" name="courseNum"></br>
+    <input type="submit" name="submit" value="checkcourse"></input>
+</form>
+<form action="viewlearndhistory.do" method="post">
+    userid<input type="text" name="userId"></br>
+    <input type="submit" name="submit" value="viewlearndhistory"></input>
+</form>
+<form action="viewallcourse.do" method="post">
+    userid<input type="text" name="userId"></br>
+    <input type="submit" name="submit" value="viewallcourse"></input>
+</form>
+<form action="viewrecommendcourse.do" method="post">
+    userid<input type="text" name="userId"></br>
+    <input type="submit" name="submit" value="viewrecommendcourse"></input>
+</form>
+<form action="addcourse.do" enctype="multipart/form-data" method="post">
+    userid<input type="text" name="userId"></br>
+    courseName<input type="text" name="courseName"></br>
+    coursePower<input type="text" name="coursePower"></br>
+    courseSumLesson<input type="text" name="courseSumLesson"></br>
+    expectComplete<input type="text" name="expectComplete"></br>
+    courseInfo<input type="text" name="courseInfo"></br>
+    File to upload: <input type="file" name="pic"><br/>
+    <input type="submit" name="submit" value="addcourse"></input>
 </form>
 <form action="findAllWithLessonRecord.do" method="post">
     <input type="submit" name="submit" value="findAllWithLessonRecord"></input>
@@ -42,6 +75,32 @@
 </form>
 <form action="findByCourseNumWithLessonRecord.do" method="post">
     <input type="submit" name="submit" value="findByCourseNumWithLessonRecord"></input>
+</form>
+<form action="delcourse.do" method="post">
+    courseId<input type="text" name="courseId"></br>
+    <input type="submit" name="submit" value="delcourse"></input>
+</form>
+@RequestParam("courseId")String courseId,@RequestParam("userId") String adminNum, @RequestParam("courseName") String courseName,
+@RequestParam("courseInfo")String courseInfo,@RequestParam("coursePower") String coursePower, @RequestParam("courseSumLesson") String courseSumLesson,
+@RequestParam("expectComplete") String expectComplete, @RequestParam("picUrl")
+<form action="editcourse.do" method="post">
+    courseId<input type="text" name="courseId"></br>
+    userId<input type="text" name="userId"></br>
+    courseName<input type="text" name="courseName"></br>
+    courseInfo<input type="text" name="courseInfo"></br>
+    coursePower<input type="text" name="coursePower"></br>
+    courseSumLesson<input type="text" name="courseSumLesson"></br>
+    expectComplete<input type="text" name="expectComplete"></br>
+    picUrl<input type="text" name="picUrl"></br>
+    <input type="submit" name="submit" value="editcourse"></input>
+</form>
+<form action="viewcourseanalysis.do" method="post">
+    courseId<input type="text" name="courseId"></br>
+    <input type="submit" name="submit" value="viewcourseanalysis"></input>
+</form>
+<form action="viewuseranalysis.do" method="post">
+    userId<input type="text" name="userId"></br>
+    <input type="submit" name="submit" value="viewuseranalysis"></input>
 </form>
 </body>
 </html>

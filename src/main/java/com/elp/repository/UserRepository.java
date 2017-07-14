@@ -54,5 +54,5 @@ public interface UserRepository extends JpaRepository<User,String> {
             "FROM User tb_user " +
             "WHERE tb_user.logId = ?1 " +
             "AND tb_user.delTime IS NULL ")
-    List<ShowUser> findByLogIdFromOther(String logId);
+    ShowUser findByLogIdFromOther(String logId);
 }

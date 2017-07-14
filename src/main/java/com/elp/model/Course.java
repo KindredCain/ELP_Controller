@@ -1,6 +1,8 @@
 package com.elp.model;
 
 import javax.persistence.*;
+import java.util.Date;
+
 /**
  * Created by ASUS on 2017/7/2.
  * 课程
@@ -21,7 +23,7 @@ public class Course extends BaseEntity{
     private String adminNum;
     @Column(nullable = false,length = 32)
     private String courseName;
-    @Column(length = 200)
+    @Column(length = 255)
     private String courseUrl;
     //总长度 小数点后的位数
     @Column(precision = 5,scale = 2)
@@ -34,6 +36,24 @@ public class Course extends BaseEntity{
     private String courseInfo;
     @Column(length = 200)
     private String coursePicUrl;
+
+    public Course(){
+
+    }
+    public Course(String objectId, Date createTime, Date delTime, Date updateTime, String adminNum, String courseName, String courseUrl, double courseSumLesson, String expectComplete, int coursePower, String courseInfo, String coursePicUrl) {
+        this.setObjectId(objectId);
+        this.setCreatTime(createTime);
+        this.setDelTime(delTime);
+        this.setUpdateTime(updateTime);
+        this.adminNum = adminNum;
+        this.courseName = courseName;
+        this.courseUrl = courseUrl;
+        this.setCourseSumLesson(courseSumLesson);
+        this.expectComplete = expectComplete;
+        this.coursePower =  coursePower;
+        this.courseInfo = courseInfo;
+        this.coursePicUrl = coursePicUrl;
+    }
 
     public String getAdminNum() {
         return adminNum;
@@ -82,6 +102,7 @@ public class Course extends BaseEntity{
     public void setCoursePower(int coursePower) {
         this.coursePower = coursePower;
     }
+
 
     public String getCourseInfo() {
         return courseInfo;

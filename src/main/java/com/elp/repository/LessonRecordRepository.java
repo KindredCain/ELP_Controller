@@ -1,7 +1,6 @@
 package com.elp.repository;
 
 import com.elp.model.LessonRecord;
-import com.elp.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -20,6 +19,8 @@ public interface LessonRecordRepository extends JpaRepository<LessonRecord,Strin
 
     @Query("from LessonRecord lessonRecord where lessonRecord.objectId = :objectId and lessonRecord.delTime is null")
     LessonRecord findById(@Param("objectId") String objectId);
+
+    List<LessonRecord> findAllByLessonNumAndDelTimeIsNull(String lessonNum);
 
     @Modifying
     @Query(value = "update LessonRecord lessonRecord " +

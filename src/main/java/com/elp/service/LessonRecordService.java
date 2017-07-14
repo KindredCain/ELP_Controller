@@ -47,7 +47,11 @@ public class LessonRecordService {
         return  list;
     }
     //主key查询
-    public  LessonRecord findById(String id){
+    public LessonRecord findById(String id){
         return lessonRecordRepository.findById(id);
+    }
+    //课时id查询
+    public List<LessonRecord> findAllByLessonNum(String lessonNum){
+        return lessonRecordRepository.findAllByLessonNumAndDelTimeIsNull(lessonNum);
     }
 }
