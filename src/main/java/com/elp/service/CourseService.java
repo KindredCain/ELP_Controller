@@ -3,14 +3,23 @@ package com.elp.service;
 import com.elp.enums.ResultEnum;
 import com.elp.exception.MyException;
 import com.elp.model.Course;
+import com.elp.model.User;
 import com.elp.repository.CourseRepository;
 import com.elp.repository.LessonRecordRepository;
 import com.elp.repository.LessonRepository;
+import com.elp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,6 +36,8 @@ public class CourseService {
     private LessonRepository lessonRepository;
     @Autowired
     private LessonRecordRepository lessonRecordRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     //增
     public void add(Course course) {
@@ -75,7 +86,29 @@ public class CourseService {
         List<Course> list = courseRepository.findByCourseNameLike(userId, courseName);
         return list;
     }
-
+    //根据课程名模糊动态查询课程
+    public List<Course> findAllByCourseName(String userId, Course course) {
+        return courseRepository.findAll(new Specification<Course>(){
+            @Override
+            public Predicate toPredicate(Root<Course> root, CriteriaQuery<?> query, CriteriaBuilder cb){
+                List<Predicate> list = new ArrayList<Predicate>();
+                list.add(cb.isNull(root.get("delTime")));
+                if(course != null && !StringUtils.isEmpty(course.getCourseName()) ){
+                    list.add(cb.like(root.get("courseName"), "%" + course.getCourseName() + "%"));
+                }
+                if(course != null && !StringUtils.isEmpty(course.getAdminNum()) ){
+                    list.add(cb.equal(root.get("adminNum"), course.getAdminNum()));
+                }
+                if(course != null && !StringUtils.isEmpty(course.getExpectComplete()) ){
+                    list.add(cb.lessThanOrEqualTo(root.get("expectComplete"), Integer.valueOf(course.getExpectComplete())));
+                }
+                User user = userRepository.findById(userId);
+                list.add(cb.lessThanOrEqualTo(root.get("coursePower"), user.getUserPower()));
+                Predicate[] p = new Predicate[list.size()];
+                return cb.and(list.toArray(p));
+            }
+        });
+    }
     //根据用户id和课程id查询已学课程
     public List<Object[]> findLearndCourseAndRecodByUserIdAndCourseNum(String userId, String courseNum) {
         return courseRepository.findByObjectIdAndCourseNum(userId, courseNum);

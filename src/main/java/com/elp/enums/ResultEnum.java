@@ -11,7 +11,8 @@ public enum ResultEnum {
     ERROR_101(101, "没有数据"),
     ERROR_102(102, "登录失败"),
     ERROR_103(103, "文件操作失败"),
-    ERROR_104(104, "文件读取失败"),;
+    ERROR_104(104, "文件读取失败"),
+    ERROR_105(105,"密码错误"),;
     private Integer code;
     private String msg;
 

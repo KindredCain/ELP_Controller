@@ -51,7 +51,7 @@ public class MsgService {
         return msgRepository.findById(id);
     }
     //用户id查询
-    List<Msg> findByRecUser(String userId){
+    public List<Msg> findByRecUser(String userId){
         return msgRepository.findByRecUser(userId);
     }
     //修改消息状态
@@ -60,7 +60,7 @@ public class MsgService {
         if(msgItem == null){
             throw new MyException(ResultEnum.ERROR_101);
         } else{
-            msgItem.setMsgStats("1");
+            msgItem.setMsgStats("readed");
             msgRepository.save(msgItem);
         }
     }
