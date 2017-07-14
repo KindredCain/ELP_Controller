@@ -25,5 +25,6 @@ public class OfficeController {
 
     @PostMapping(value = "/viewalloffice")
     public Result viewAllOffice(){
+        return Result.success(officeService.findAll());
     }
 }
