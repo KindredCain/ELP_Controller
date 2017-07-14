@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.SessionCookieConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -22,12 +21,15 @@ import javax.servlet.http.HttpSession;
 
 @Aspect
 @Component
-public class TestAspect {
+public class LoginAspect {
 
-    private final static Logger logger = LoggerFactory.getLogger(TestAspect.class);
+    private final static Logger logger = LoggerFactory.getLogger(LoginAspect.class);
 
     @Pointcut("execution(public * com.elp.controller.*.*(..))")
     public void point(){}
+
+    @Pointcut("execution(public * com.elp.controller.AdminController.*(..))")
+    public void pointAdmin(){}
 
     @Before("point()")
     public void doBefore() {
@@ -36,13 +38,30 @@ public class TestAspect {
         HttpServletRequest request = attributes.getRequest();
         HttpSession session = request.getSession();
         String id = (String) session.getAttribute("ID");
-        /*之后登陆通过这个返回sessionid*/
-        logger.info(session.getId());
-        logger.info(id);
+        if (id == null) {
+            throw new MyException(ResultEnum.ERROR_100);
+        }
     }
 
     @After("point()")
     public void doAfter() {
+        logger.info("after!!!!");
+    }
+
+    @Before("pointAdmin()")
+    public void doBeforeAdmin() {
+        logger.info("before!!!!");
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
+        HttpSession session = request.getSession();
+        String type = (String) session.getAttribute("TYPE");
+        if (type.equals("admin")) {
+            throw new MyException(ResultEnum.ERROR_100);
+        }
+    }
+
+    @After("pointAdmin()")
+    public void doAfterAdmin() {
         logger.info("after!!!!");
     }
 }
