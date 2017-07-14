@@ -51,6 +51,29 @@ public class UserService {
             userRepository.save(user);
         }
     }
+
+    //查询用户并附加上职位
+    public List<Object[]> findByIdWithOffice(String userId) {
+        return userRepository.findByIdWithOffice(userId);
+    }
+    //用户修改基本信息
+    public void updateInfo(User user){
+        User userItem = userRepository.findById(user.getObjectId());
+        if (userItem == null) {
+            throw new MyException(ResultEnum.ERROR_101);
+        } else {
+            if (userItem.getUserName().equals(user.getUserName()) == false) {
+                userItem.setUserName(user.getUserName());
+            }
+            if (userItem.getUserPicUrl() == null || userItem.getUserPicUrl().equals(user.getUserPicUrl()) == false) {
+                userItem.setUserPicUrl(user.getUserPicUrl());
+            }
+            if (userItem.getOfficeNum() == null || userItem.getOfficeNum().equals(user.getOfficeNum()) == false) {
+                userItem.setOfficeNum(user.getOfficeNum());
+            }
+            userRepository.save(userItem);
+        }
+    }
     //改权限
     public void updatePower(User user){
         User userItem = userRepository.findById(user.getObjectId());
@@ -61,7 +84,7 @@ public class UserService {
             userRepository.save(userItem);
         }
     }
-    //改密码
+    //重置密码
     public void updatePwd(User user){
         User userItem = userRepository.findById(user.getObjectId());
         if(userItem == null){
@@ -69,6 +92,21 @@ public class UserService {
         } else{
             userItem.setPwd("12345678");
             userRepository.save(userItem);
+        }
+
+    }
+    //自己改密码
+    public void updateMyPwd(User user,String newPwd) {
+        User userItem = userRepository.findById(user.getObjectId());
+        if(userItem == null){
+            throw new MyException(ResultEnum.ERROR_101);
+        } else{
+            if (userItem.getPwd().equals(user.getPwd()) == true) {
+                userItem.setPwd(newPwd);
+                userRepository.save(userItem);
+            } else {
+                throw new MyException(ResultEnum.ERROR_105);
+            }
         }
     }
     //查询所有

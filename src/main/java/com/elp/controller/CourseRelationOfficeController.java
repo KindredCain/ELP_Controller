@@ -1,5 +1,6 @@
 package com.elp.controller;
 
+import com.elp.model.Course;
 import com.elp.model.CourseRelationOffice;
 import com.elp.service.CourseRelationOfficeService;
 import com.elp.util.Result;
@@ -23,6 +24,7 @@ public class CourseRelationOfficeController {
     @Autowired
     private CourseRelationOfficeService courseRelationOfficeService;
 
+    //所有的课程职位中间表
     @PostMapping(value = "/viewallsubjects")
     public Result viewAllSubjects(){
         List list = courseRelationOfficeService.findAllGroupBySubjectName();
@@ -34,7 +36,8 @@ public class CourseRelationOfficeController {
         }
         return Result.success(returnMap);
     }
-    @PostMapping(value = "viewusersubject")
+    //查询用户的对应课程职位中间表
+    @PostMapping(value = "/viewusersubject")
     public Result viewUserSubject(@RequestParam("userId") String userId){
         List list = courseRelationOfficeService.findByUserIdGroupBySubjectName(userId);
         List<Map> returnMap = new ArrayList<>();
@@ -46,17 +49,14 @@ public class CourseRelationOfficeController {
         }
         return Result.success(returnMap);
     }
-    //
+
+    //添加课程、职位中间关系
     @PostMapping(value = "/addsubject")
-    public Result addsubject(@RequestParam("courseId")String courseId,@RequestParam("subjectName") String subjectName,
-                             @RequestParam("officeId")String officeId){
-        CourseRelationOffice courseRelationOffice = new CourseRelationOffice();
-        courseRelationOffice.setCourseNum(courseId);
-        courseRelationOffice.setOfficeNum(officeId);
-        courseRelationOffice.setSubjectName(subjectName);
+    public Result addsubject(CourseRelationOffice courseRelationOffice){
         courseRelationOfficeService.add(courseRelationOffice);
         return Result.success();
     }
+
     @PostMapping(value = "/delsubject")
     public Result delSubject(@RequestParam("subjectId") String subjectId){
         CourseRelationOffice courseRelationOffice = new CourseRelationOffice();
