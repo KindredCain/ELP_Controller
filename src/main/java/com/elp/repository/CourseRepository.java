@@ -5,6 +5,7 @@ import com.elp.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.NoRepositoryBean;
@@ -15,7 +16,7 @@ import java.util.List;
 /**
  * Created by ASUS on 2017/7/3.
  */
-public interface CourseRepository extends JpaRepository<Course,String> {
+public interface CourseRepository extends JpaRepository<Course,String>, JpaSpecificationExecutor<Course> {
 
     @Query("from Course course where course.delTime is null")
     List<Course> findAll();

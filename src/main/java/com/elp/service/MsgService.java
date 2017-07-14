@@ -60,7 +60,7 @@ public class MsgService {
         if(msgItem == null){
             throw new MyException(ResultEnum.ERROR_101);
         } else{
-            msgItem.setMsgStats(msg.getMsgStats());
+            msgItem.setMsgStats("readed");
             msgRepository.save(msgItem);
         }
     }

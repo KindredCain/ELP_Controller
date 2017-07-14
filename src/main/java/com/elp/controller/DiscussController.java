@@ -30,15 +30,15 @@ public class DiscussController {
     @PostMapping(value = "viewlessondiscuss")
     public Result viewLessonDiscuss(@RequestParam("lessonId") String lessonId){
         List<Object[]> list = discussService.findAllByLessonId(lessonId);
-        List<Map> returnMap = new ArrayList<>();
+        List<Map> returnList = new ArrayList<>();
         for(int i=0;i<list.size();i++){
             Object[] objects = list.get(i);
             Map tempMap = new HashMap();
             tempMap.put("Discuss",objects[0]);
             tempMap.put("User",objects[1]);
-            returnMap.add(tempMap);
+            returnList.add(tempMap);
         }
-        return Result.success(returnMap);
+        return Result.success(returnList);
     }
 
     //发表讨论
@@ -65,9 +65,7 @@ public class DiscussController {
     }
 
     @PostMapping(value = "/deldiscuss")
-    public Result delDiscuss(@RequestParam("discussId") String discussId){
-        Discuss discuss = new Discuss();
-        discuss.setObjectId(discussId);
+    public Result delDiscuss(Discuss discuss){
         discussService.delete(discuss);
         return Result.success();
     }

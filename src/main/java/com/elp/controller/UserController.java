@@ -47,27 +47,13 @@ public class UserController {
     @PostMapping(value = "/viewotheruser")
     public Result viewOtherUser(@RequestParam("logId") String logId) {
         ShowUser showUser = userService.findByLogIdFromOther(logId);
-        Map returnMap = new HashMap();
-        List<Map> templist = new ArrayList<>();
-        Map tempMap = new HashMap();
-        tempMap.put("showUser", showUser);
-        returnMap.put("showUserList", templist);
-        return Result.success(templist);
+        return Result.success(showUser);
     }
 
     //选出学霸
     @PostMapping(value = "/viewmaxshowusers")
     public Result viewMaxShowUsers() {
-        List<ShowUser> showUserList = userService.findMax();
-        Map returnMap = new HashMap();
-        List<Map> mapList = new ArrayList<>();
-        for (int i = 0; i < showUserList.size(); i++) {
-            Map tempMap = new HashMap();
-            tempMap.put("showUser", showUserList.get(i));
-            mapList.add(tempMap);
-        }
-        returnMap.put("shouUserList", mapList);
-        return Result.success(returnMap);
+        return Result.success(userService.findMax());
     }
 
     //修改用户信息，可修改用户名、图片地址和职位

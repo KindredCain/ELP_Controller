@@ -25,19 +25,5 @@ public class OfficeController {
 
     @PostMapping(value = "/viewalloffice")
     public Result viewAllOffice(){
-        List<Object[]> list = officeService.findAllWithDepartment();
-        Map returmMap = new HashMap<>();
-        List tempMapList = new ArrayList();
-        for (int i=0;i<list.size();i++) {
-            Object[] objects = list.get(i);
-            Office office = (Office) objects[0];
-            Department department = (Department) objects[1];
-            Map tempMap = new HashMap();
-            tempMap.put("office",office);
-            tempMap.put("department",department);
-            tempMapList.add(tempMap);
-        }
-        returmMap.put("officelist",tempMapList);
-        return Result.success(returmMap);
     }
 }

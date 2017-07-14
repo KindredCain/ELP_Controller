@@ -39,17 +39,12 @@ public class MsgController {
         return Result.success(returnMap);
     }
     @PostMapping(value = "/updatemsgstate")
-    public Result updateMsgState(@RequestParam("msgId") String msgId){
-        Msg msg = new Msg();
-        msg.setMsgStats("readed");
-        msg.setObjectId(msgId);
+    public Result updateMsgState(Msg msg){
         msgService.updateMsgStats(msg);
         return Result.success();
     }
     @PostMapping(value = "/deletemsg")
-    public Result deleteMsg(@RequestParam("msgId") String msgId){
-        Msg msg = new Msg();
-        msg.setObjectId(msgId);
+    public Result deleteMsg(Msg msg){
         msgService.delete(msg);
         return Result.success();
     }
